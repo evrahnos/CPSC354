@@ -11,11 +11,11 @@
   \hypersetup{
     colorlinks = true,
     urlcolor = blue,       % color of external links using \href
-    linkcolor= blue,       % color of internal links
+    linkcolor= blue,       % color of internal links 
     citecolor= blue,       % color of links to bibliography
     filecolor= blue,        % color of file links
     }
-
+    
 \usepackage{listings}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -39,7 +39,7 @@
   tabsize=3
 }
 
-\theoremstyle{theorem}
+\theoremstyle{theorem} 
    \newtheorem{theorem}{Theorem}[section]
    \newtheorem{corollary}[theorem]{Corollary}
    \newtheorem{lemma}[theorem]{Lemma}
@@ -47,7 +47,7 @@
 \theoremstyle{definition}
    \newtheorem{definition}[theorem]{Definition}
    \newtheorem{example}[theorem]{Example}
-\theoremstyle{remark}
+\theoremstyle{remark}    
   \newtheorem{remark}[theorem]{Remark}
 
 
@@ -61,18 +61,114 @@
 \maketitle
 
 \begin{abstract}
-To be written at a later date.
+To be written at a later date. 
 \end{abstract}
 
 \tableofcontents
 
 \section{Introduction}\label{intro}
 
-To be written at a later date.
+Replace this entire Section~\ref{intro} with your own short introduction. 
+
+\subsection{General Remarks}
+
+First you need to \href{https://www.latex-project.org/get/}{download and install} LaTeX.\footnote{Links are typeset in blue, but you can change the layout and color of the links if you locate the  \texttt{hypersetup} command.}
+%
+For quick experimentation, you can use an online editor such as \href{https://www.overleaf.com/learn}{Overleaf}. But to grade the report I will used the time-stamped pdf-files in your git repository.  
+
+ 
+\medskip\noindent
+LaTeX is a markup language (as is, for example, HTML). The source code is in a \verb+.tex+ file and needs to be compiled for viewing, usually to \verb+.pdf+.
+
+
+\medskip\noindent
+If you want to change the default layout, you need to type commands. For example, \verb+\medskip+ inserts a medium vertical space and \verb+\noindent+ starts a paragraph without indentation.
+ 
+\medskip\noindent
+Mathematics is typeset between double dollars, for example $$x+y=y+x.$$
+
+
+\subsection{LaTeX Resources}
+
+I start a new subsection, so that you can see how it appears in the table of contents.
+
+\subsubsection{Subsubsections}
+
+Sometimes it is good to have subsubsections.
+
+\subsubsection{Itemize and enumerate}
+
+\begin{itemize}
+\item This is how you itemize in LaTeX.
+\item I think a good way to learn LaTeX is by starting from this template file and build it up step by step. Often stackoverflow will answer your questions. But here are a few resources:
+  \begin{enumerate}
+  \item \href{https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes}{Learn LaTeX in 30 minutes}
+  \item \href{https://www.latex-project.org/}{LaTeX – A document preparation system}\end{enumerate}
+\end{itemize}
+
+\subsubsection{Typesetting Code}
+
+A typical project will involve code. For the example below I took the LaTeX code from \href{https://stackoverflow.com/a/3175141/4600290}{stackoverflow} and the Haskell code from \href{https://hackmd.io/@alexhkurz/HylLKujCP}{my tutorial}.
+
+\begin{lstlisting}
+-- run the transition function on a word and a state
+run :: (State -> Char -> State) -> State -> [Char] -> State
+run delta q [] = q
+run delta q (c:cs) = run delta (delta q c) cs 
+\end{lstlisting}
+%
+Short snippets such as \texttt{run :: (State -> Char -> State) -> State -> [Char] -> State} can also be directly fitted into text. There are several ways of doing this, for example, \verb@run :: (State -> Char -> State) -> State -> [Char] -> State@ is slightly different in terms of spaces and linebreaking (and can lead to layout that is better avoided), as is
+\begin{verbatim}run :: (State -> Char -> State) -> State -> [Char] -> State\end{verbatim}
+
+\noindent
+For more on the topic see \href{https://www.overleaf.com/latex/examples/code-presentations-example-different-ways-shown-in-beamer-metropolis/tsxpnyjbhbds}{Code-Presentations Example}.
+
+\medskip\noindent
+Generally speaking,  the methods for displaying code discussed above work well only for short listings of code. For entire programs, it is better to have external links to, for example, Github or \href{https://replit.com/@alexhkurz/automata01#main.hs}{Replit} (click on the "Run" button and/or the ``Code" tab).
+
+\subsubsection{More Mathematics}
+
+We have already seen $x+y=y+x$ as an example of inline maths. We can also typeset mathematics in display mode, for example
+$$\frac x y =\frac{xy}{y^2},$$
+
+\noindent
+Here is an example of equational reasoning that spans several lines:
+\begin{align*}
+{\rm fib}(3)
+& = {\rm fib}(1) +{\rm fib}(2)  & {\rm fib}(n+2) = {\rm fib}(n)  + {\rm fib}(n+1) \\
+& = {\rm fib}(1) +{\rm fib}(0)  + {\rm fib}(1) & {\rm fib}(n+2) = {\rm fib}(n)  + {\rm fib}(n+1) \\
+& = 1 + 0  +1 & {\rm fib}(0) = 0,   {\rm fib}(1) = 1\\
+& = 2 & {\rm arithmetic}
+\end{align*}
+
+\subsubsection{Definitons, Examples, Theorems, Etc}
+
+\begin{definition} 
+This is a definition.
+\end{definition}
+
+\begin{example}
+This is an example.
+\end{example}
+
+\begin{proposition}
+This is a proposition.
+\end{proposition}
+
+\begin{theorem}
+This is a theorem.
+\end{theorem}
+
+\noindent You can also create your own environment, eg if you want to have Question, Notation, Conjecture, etc.
+
+\subsection{Plagiarism}
+
+To avoid plagiarism, make sure that in addition to \cite{PL} you also cite all the external sources you use. Make sure you cite all your references in your text, not only at the end.
+
 
 \section{Homework}\label{homework}
 
-This section will contain my solutions to the weekly homework assignments.
+This section will contain my solutions to the weekly homework assignments. 
 
 \subsection{Week 1}
 
@@ -96,7 +192,7 @@ def gcd(a,b):
   \item \texttt{gcd(9, 33)}
   \begin{itemize}
       \item The function is called, assigning 9 to variable \texttt{a} and 33 to variable \texttt{b}.
-  \end{itemize}
+  \end{itemize} 
   \item \texttt{while a != b:}
   \begin{itemize}
       \item The while loop condition returns True, so the loop starts.
@@ -166,6 +262,202 @@ def gcd(a,b):
       \item \texttt{a} is returned from the function, giving the correct greatest common divisor of \textbf{3}.
   \end{itemize}
 \end{enumerate}
+
+\subsection{Week 2}
+
+The following are various implementations of functions in Haskell.
+ 
+% select_evens function
+\begin{lstlisting}[language=Haskell]
+-- select_evens - lists the even-indexed elements of a given list
+select_evens [] = [] -- in the case of a list with even number elements
+select_evens (x:[]) = [] -- in the case of a list with odd number elements
+select_evens (x:y:xs) = y : select_evens (xs)
+\end{lstlisting}
+
+\noindent We can test this code by going through the function with a sample input \texttt{select\_evens ["a","b","c","d","e"]}, step by step.
+
+\begin{enumerate}[noitemsep]
+  \item \texttt{select\_evens ["a","b","c","d","e"]}
+  \linebreak \texttt{select\_evens ("a":"b":["c","d","e"]) = "b" : select\_evens (["c","d","e"])}
+  \begin{itemize}
+      \item The input is pattern matched to the third case, starting the list with \texttt{"b"}.
+  \end{itemize} 
+  \item \texttt{select\_evens (["c","d","e"])}
+  \linebreak \texttt{"b" : select\_evens ("c":"d":["e"]) = "b" : "d" : select\_evens (["e"])}
+  \begin{itemize}
+      \item The next call to \texttt{select\_evens} is pattern matched to the third case, adding to the list \texttt{"d"}.
+  \end{itemize} 
+  \item \texttt{select\_evens (["e"])}
+  \linebreak \texttt{"b" : "d" : select\_evens ("e":[]) = "b" : "d" : []}
+  \begin{itemize}
+      \item The next call to \texttt{select\_evens} is pattern matched to the second case, adding to the list \texttt{[]}. A list with an even number of elements would end with using the first case instead.
+  \end{itemize}
+  \item \texttt{"b" : "d" : []}
+  \linebreak \texttt{["b","d"]}
+  \begin{itemize}
+      \item A final list can now be formed with the colon operators.
+  \end{itemize} 
+\end{enumerate}
+
+% select_odds function
+\begin{lstlisting}[language=Haskell]
+-- select_odds - lists the odd-indexed elements of a given list
+select_odds [] = [] -- in the case of a list with even number elements
+select_odds (x:[]) = [x] -- in the case of a list with odd number elements
+select_odds (x:y:xs) = x : select_odds (xs)
+\end{lstlisting}
+    
+\noindent We can test this code by going through the function with a sample input \texttt{select\_odds ["a","b","c","d","e"]}, step by step.
+
+\begin{enumerate}[noitemsep]
+    \item \texttt{select\_odds ["a","b","c","d","e"]}
+    \linebreak \texttt{select\_odds ("a":"b":["c","d","e"]) = "a" : select\_odds (["c","d","e"])}
+    \begin{itemize}
+        \item The input is pattern matched to the third case, starting the list with \texttt{"a"}.
+    \end{itemize} 
+    \item \texttt{select\_odds (["c","d","e"])}
+    \linebreak \texttt{"a" : select\_odds ("c":"d":["e"]) = "a" : "c" : select\_odds (["e"])}
+    \begin{itemize}
+        \item The next call to \texttt{select\_odds} is pattern matched to the third case, adding to the list \texttt{"c"}.
+    \end{itemize} 
+    \item \texttt{select\_odds (["e"])}
+    \linebreak \texttt{"a" : "c" : select\_odds ("e":[]) = "a" : "c" : ["e"]}
+    \begin{itemize}
+        \item The next call to \texttt{select\_odds} is pattern matched to the second case, adding to the list \texttt{[]}. A list with an even number of elements would end with using the first case instead.
+    \end{itemize}
+    \item \texttt{"a" : "c" : ["e"]}
+    \linebreak \texttt{["a","c","e"]}
+    \begin{itemize}
+        \item A final list can now be formed with the colon operators.
+    \end{itemize} 
+\end{enumerate}
+
+% member function
+\begin{lstlisting}[language=Haskell]
+-- member - determines whether an element is part of a given list
+member a [] = False
+member a (x:xs)
+    | a==x = True
+    | otherwise = member a (xs)
+\end{lstlisting}
+    
+\noindent We can test this code by going through the function with a sample input \texttt{member 2 [5,2,6]}, step by step.
+
+\begin{enumerate}[noitemsep]
+    \item \texttt{member 2 [5,2,6]}
+    \linebreak \texttt{member 2 (5:[2,6]) = member 2 ([2,6])}
+    \begin{itemize}
+        \item The input is pattern matched to the second case, satisfying the \texttt{otherwise} conditional.
+    \end{itemize} 
+    \item \texttt{member 2 [2,6]}
+    \linebreak \texttt{member 2 (2:[6]) = True}
+    \begin{itemize}
+        \item The input is pattern matched to the second case, satisfying the \texttt{a==x} conditional. 2 is determined as a member of the given list.
+    \end{itemize} 
+\end{enumerate}
+
+% append function
+\begin{lstlisting}[language=Haskell]
+-- append - appends a list to another list
+append [] ys = ys
+append (x:xs) ys = x : append xs ys
+\end{lstlisting}
+    
+\noindent We can test this code by going through the function with a sample input \texttt{append [1,2] [3,4,5]}, step by step.
+
+\begin{enumerate}[noitemsep]
+    \item \texttt{append [1,2] [3,4,5]}
+    \linebreak \texttt{append (1:[2]) [3,4,5] = 1 : append [2] [3,4,5]}
+    \begin{itemize}
+        \item The input is pattern matched to the second case.
+    \end{itemize} 
+    \item \texttt{append [2] [3,4,5]}
+    \linebreak \texttt{1 : append (2:[]) [3,4,5] = 1 : 2 : append [] [3,4,5]}
+    \begin{itemize}
+        \item The input is pattern matched to the second case.
+    \end{itemize}
+    \item \texttt{append [] [3,4,5]}
+    \linebreak \texttt{1 : 2 : append [] [3,4,5] = 1 : 2 : [3,4,5]}
+    \begin{itemize}
+        \item The input is pattern matched to the first case.
+    \end{itemize}
+    \item \texttt{1 : 2 : [3,4,5]}
+    \linebreak \texttt{[1,2,3,4,5]}
+    \begin{itemize}
+        \item A final list can now be formed with the colon operators.
+    \end{itemize}
+\end{enumerate}
+
+\newpage % Temporary page break
+
+% revert function
+\begin{lstlisting}[language=Haskell]
+-- revert - reverses a list
+revert [] = []
+revert (x:xs) = revert (xs) ++ [x]
+\end{lstlisting}
+    
+\noindent We can test this code by going through the function with a sample input \texttt{revert [1,2,3]}, step by step.
+
+\begin{enumerate}[noitemsep]
+    \item \texttt{revert [1,2,3]}
+    \linebreak \texttt{revert (1:[2,3]) = revert ([2,3]) ++ [1]}
+    \begin{itemize}
+        \item The input is pattern matched to the second case.
+    \end{itemize} 
+    \item \texttt{revert [2,3]}
+    \linebreak \texttt{revert (2:[3]) ++ [1] = revert ([3]) ++ [2] ++ [1]}
+    \begin{itemize}
+        \item The input is pattern matched to the second case.
+    \end{itemize}
+    \item \texttt{revert [3]}
+    \linebreak \texttt{revert (3:[]) ++ [2] ++ [1] = revert ([]) ++ [3] ++ [2] ++ [1]}
+    \begin{itemize}
+        \item The input is pattern matched to the second case.
+    \end{itemize}
+    \item \texttt{revert []}
+    \linebreak \texttt{revert [] ++ [3] ++ [2] ++ [1] = [] ++ [3] ++ [2] ++ [1]}
+    \begin{itemize}
+        \item The input is pattern matched to the first case.
+    \end{itemize}
+    \item \texttt{[] ++ [3] ++ [2] ++ [1]}
+    \linebreak \texttt{[3,2,1]}
+    \begin{itemize}
+        \item The lists can now be concatenated.
+    \end{itemize}
+\end{enumerate}
+
+% less_equal function
+\begin{lstlisting}[language=Haskell]
+    -- less_equal - checks if the element in a list is less than or equal to the same-indexed element in another list
+    less_equal [] [] = True
+    less_equal (x:xs) (y:ys)
+        | x > y = False
+        | otherwise = less_equal (xs) (ys)
+\end{lstlisting}
+    
+\noindent We can test this code by going through the function with a sample input \texttt{less\_equal [1,2,3] [2,3,2]}, step by step.
+
+\begin{enumerate}[noitemsep]
+    \item \texttt{less\_equal [1,2,3] [2,3,2]}
+    \linebreak \texttt{less\_equal (1:[2,3]) (2:[3,2]) = less\_equal ([2,3]) ([3,2])}
+    \begin{itemize}
+        \item The input is pattern matched to the second case, satisfying the \texttt{otherwise} conditional.
+    \end{itemize} 
+    \item \texttt{less\_equal [2,3] [3,2]}
+    \linebreak \texttt{less\_equal (2:[3]) (3:[2]) = less\_equal ([3]) ([2])}
+    \begin{itemize}
+        \item The input is pattern matched to the second case, satisfying the \texttt{otherwise} conditional.
+    \end{itemize} 
+    \item \texttt{less\_equal [3] [2]}
+    \linebreak \texttt{less\_equal (3:[]) (2:[]) =  False}
+    \begin{itemize}
+        \item The input is pattern matched to the second case, satisfying the \texttt{x > y} conditional since 3 $>$ 2.
+    \end{itemize} 
+\end{enumerate}
+
+\newpage % Temporary page break
 
 \section{Project}
 
