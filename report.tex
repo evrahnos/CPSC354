@@ -17,6 +17,8 @@
     }
     
 \usepackage{listings}
+\usepackage{qtree}
+\usepackage{tikz-qtree}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -341,7 +343,137 @@ From this execution, the moves for a 5-ring Tower of Hanoi game can be seen as f
 \end{lstlisting}
 
 \noindent \textbf{Analysis:} From this computation, the word \texttt{hanoi} appears exactly 31 times in the execution. Based on executions of the game with a different number of starting rings, the formula $2^n - 1$ can be derived to determine how many times \texttt{hanoi} will appear, with \texttt{n} being the number of disks in the game.
+\subsection{Week 4}
+The following compares concrete and abstract syntax trees of various mathematical expressions.
 
+The expression $2+1$:\newline
+
+\hfil
+\begin{tikzpicture}
+\begin{scope}
+\Tree[.Exp [.Exp [.Exp1 [.Exp2 $3$ ]]]
+           [.+ ]
+           [.Exp1 [.Exp2 $1$ ]]]
+\end{scope}
+\begin{scope}[xshift=5cm]
+\Tree[.Plus [.2 ]
+            [.1 ]]
+\end{scope}
+\end{tikzpicture}
+\hfil
+
+The expression $1+2*3$:\newline
+
+\hfil
+\begin{tikzpicture}
+\begin{scope}
+\Tree[.Exp [.Exp [.Exp1 [.Exp2 $1$ ]]]
+           [.+ ]
+           [.Exp1 [.Exp1 [.Exp2 $2$ ]]
+                  [.* ]
+                  [.Exp2 $3$ ]]]
+\end{scope}
+
+\begin{scope}[xshift=5cm]
+\Tree[.Plus [.1 ]
+            [.Times [.2 ]
+                    [.3 ]]]
+\end{scope}
+\end{tikzpicture}
+\hfil
+
+\newpage
+The expression $1+(2*3)$:\newline
+
+\hfil
+\begin{tikzpicture}
+\begin{scope}
+\Tree[.Exp [.Exp [.Exp1 [.Exp2 $1$ ]]]
+           [.+ ]
+           [.Exp1 [.Exp2 [.( ]
+                         [.Exp [.Exp1 [.Exp1 [.Exp2 $1$ ]]
+                                      [.* ]
+                                      [.Exp2 $3$ ]]]
+                         [.) ]]]]
+                         
+\end{scope}
+
+\begin{scope}[xshift=5cm]
+\Tree[.Plus [.1 ]
+            [.Times [.2 ]
+                    [.3 ]]]
+\end{scope}
+\end{tikzpicture}
+\hfil    
+
+The expression $(1+2)*3$:\newline
+
+\hfil
+\begin{tikzpicture}
+\begin{scope}
+\Tree[.Exp [.Exp1 [.Exp1 [.Exp2 [.( ]
+                                [.Exp [.Exp [.Exp1 [.Exp2 $1$ ]]]
+                                      [.+ ]
+                                      [.Exp1 [.Exp2 $2$ ]]]
+                                [.) ]]]
+           [.* ]
+           [.Exp2 $3$ ]]]
+                         
+\end{scope}
+
+\begin{scope}[xshift=5cm]
+\Tree[.Times [.Plus [.1 ]
+                    [.2 ]]
+             [.3 ]]
+\end{scope}
+\end{tikzpicture}
+\hfil
+
+\newpage
+The expression $1+2*3+4*5+6$:\newline
+
+\hfil
+\begin{tikzpicture}
+\begin{scope}
+\Tree[.Exp [.Exp [.Exp [.Exp [.Exp1 [.Exp2 $1$ ]]]
+                       [.+ ]
+                       [.Exp1 [.Exp1 [.Exp2 $2$ ]]
+                              [.* ]
+                              [.Exp2 $3$ ]]]
+                 [.+ ]
+                 [.Exp1 [.Exp1 [.Exp2 $4$ ]]
+                        [.* ]
+                        [.Exp2 $5$ ]]]
+           [.+ ]
+           [.Exp1 [.Exp2 $6$ ]]]
+                
+
+                         
+\end{scope}
+
+\begin{scope}[xshift=8cm]
+\Tree[.Plus [.Plus [.Plus [.1 ]
+                          [.Times [.2 ]
+                                  [.3 ]]]
+                   [.Times [.4 ]
+                           [.5 ]]]
+            [.6 ]]
+
+                   
+\end{scope}
+\end{tikzpicture}
+\hfil
+
+\noindent \textbf{Analysis of the abstract syntax tree of $1+2+3$}:
+The abstract syntax tree of $1+2+3$ would match the tree of $(1+2)+3$. This is because the first breakdown of $+$ separates it to \texttt{Exp} and \texttt{Exp1}, and \texttt{Exp1} cannot reduce down to another sum. Therefore, the right side of the tree must become an integer, while the left side reduces down to a sum. The resulting tree would be as follows, which matches $(1+2)+3$ and not $1+(2+3)$.
+
+\hfil
+\begin{tikzpicture}
+\Tree[.Plus(Exp) [.Plus(Exp) [.1(Exp) ]
+                             [.2(Exp1) ]]
+                 [.3(Exp1) ]]
+\end{tikzpicture}
+\hfil
 
 \section{Project}
 
