@@ -69,6 +69,10 @@ multN (S n) m = addN (multN n m) m
 addI :: II -> II -> II
 addI (II a b) (II c d) = II (addN a c) (addN b d)
 
+-- Multiplication: (a-b)*(c-d)=(ac+bd)-(ad+bc)
+multI :: II -> II -> II
+multI (II a b) (II c d) = II (addN (multN a c) (multN b d)) (addN (multN a d) (multN b c))
+
 ----------------
 -- QQ Arithmetic
 ----------------
@@ -88,7 +92,7 @@ addI (II a b) (II c d) = II (addN a c) (addN b d)
 -- Testing
 ----------
 main = do
-    print $ addI (II (O) (S (S O))) (II (O) (S (S (S O)))) -- II O (S (S (S (S (S O)))))
+    print $ multI (II O (S O)) (II (S (S O)) (S (S (S O)))) -- II (S (S (S O))) (S (S O))
 
 
 
