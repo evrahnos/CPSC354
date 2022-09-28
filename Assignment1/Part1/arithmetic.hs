@@ -19,6 +19,7 @@ data PP = I | T PP
 
 -- Rational numbers
 data QQ =  QQ II PP
+  deriving Show
 
 ------------------------
 -- Arithmetic on the  VM
@@ -75,12 +76,15 @@ multI (II a b) (II c d) = II (addN (multN a c) (multN b d)) (addN (multN a d) (m
 
 -- Negation: -(a-b)=(b-a)
 negI :: II -> II
-negI (II m n) = (II n m)
+negI (II a b) = II b a
 
 ----------------
 -- QQ Arithmetic
 ----------------
 
+-- Addition: (a/b)+(c/d)=(ad+bc)/(bd)
+addQ :: QQ -> QQ -> QQ
+addQ (QQ a b) (QQ c d) = QQ (addI (multI a (ii_pp d)) (multI (ii_pp b) c)) (multP b d)
 
 ----------------
 -- Normalisation
@@ -96,7 +100,7 @@ negI (II m n) = (II n m)
 -- Testing
 ----------
 main = do
-    print $ negI (II (S O) (S (S O))) -- II (S (S O)) (S O)
+    print $ addQ (QQ (II (S (S (S (S O)))) O) (T (T I))) (QQ (II (S (S O)) O) (I)) -- QQ (II (S (S (S (S (S (S (S (S (S (S O)))))))))) O) (T (T I))
 
 
 
