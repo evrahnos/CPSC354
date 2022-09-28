@@ -33,6 +33,11 @@ addP :: PP -> PP -> PP
 addP I m = T m
 addP (T n) m = T (addP n m)
 
+-- multiply positive numbers
+multP :: PP -> PP -> PP
+multP I m = m
+multP (T n) m = addP (multP n m) m
+
 ----------------
 -- NN Arithmetic
 ----------------
@@ -71,7 +76,7 @@ multN (S n) m = addN (multN n m) m
 -- Testing
 ----------
 main = do
-    print $ addP (I) (T I) -- T I
+    print $ multP (T I) (T (T I)) -- T (T (T (T (T I))))
 
 
 
