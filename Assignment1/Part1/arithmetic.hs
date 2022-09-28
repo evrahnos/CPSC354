@@ -43,6 +43,9 @@ nn_pp :: PP -> NN
 nn_pp I = S O
 nn_pp (T n) = S (nn_pp n)
 
+-- convert numbers of type PP to numbers of type II
+ii_pp :: PP -> II
+ii_pp m = II (nn_pp m) O
 
 ----------------
 -- NN Arithmetic
@@ -82,7 +85,7 @@ multN (S n) m = addN (multN n m) m
 -- Testing
 ----------
 main = do
-    print $ nn_pp (I)
+    print $ ii_pp (I) -- II (S O) O
 
 
 
