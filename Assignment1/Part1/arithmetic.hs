@@ -73,6 +73,10 @@ addI (II a b) (II c d) = II (addN a c) (addN b d)
 multI :: II -> II -> II
 multI (II a b) (II c d) = II (addN (multN a c) (multN b d)) (addN (multN a d) (multN b c))
 
+-- Negation: -(a-b)=(b-a)
+negI :: II -> II
+negI (II m n) = (II n m)
+
 ----------------
 -- QQ Arithmetic
 ----------------
@@ -92,7 +96,7 @@ multI (II a b) (II c d) = II (addN (multN a c) (multN b d)) (addN (multN a d) (m
 -- Testing
 ----------
 main = do
-    print $ multI (II O (S O)) (II (S (S O)) (S (S (S O)))) -- II (S (S (S O))) (S (S O))
+    print $ negI (II (S O) (S (S O))) -- II (S (S O)) (S O)
 
 
 
