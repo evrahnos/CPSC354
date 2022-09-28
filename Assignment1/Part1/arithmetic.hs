@@ -86,6 +86,10 @@ negI (II a b) = II b a
 addQ :: QQ -> QQ -> QQ
 addQ (QQ a b) (QQ c d) = QQ (addI (multI a (ii_pp d)) (multI (ii_pp b) c)) (multP b d)
 
+-- Multiplication: (a/b)*(c/d)=(ac)/(bd)
+multQ :: QQ -> QQ -> QQ
+multQ (QQ a b) (QQ c d) = QQ (multI a c) (multP b d)
+
 ----------------
 -- Normalisation
 ----------------
@@ -100,7 +104,7 @@ addQ (QQ a b) (QQ c d) = QQ (addI (multI a (ii_pp d)) (multI (ii_pp b) c)) (mult
 -- Testing
 ----------
 main = do
-    print $ addQ (QQ (II (S (S (S (S O)))) O) (T (T I))) (QQ (II (S (S O)) O) (I)) -- QQ (II (S (S (S (S (S (S (S (S (S (S O)))))))))) O) (T (T I))
+    print $ multQ (QQ (II (S (S (S (S O)))) O) (T (T I))) (QQ (II (S (S O)) O) (I)) -- QQ (II (S (S (S (S (S (S (S (S O)))))))) O) (T (T I))
 
 
 
