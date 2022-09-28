@@ -38,6 +38,12 @@ multP :: PP -> PP -> PP
 multP I m = m
 multP (T n) m = addP (multP n m) m
 
+-- convert numbers of type PP to numbers of type NN
+nn_pp :: PP -> NN
+nn_pp I = S O
+nn_pp (T n) = S (nn_pp n)
+
+
 ----------------
 -- NN Arithmetic
 ----------------
@@ -76,7 +82,7 @@ multN (S n) m = addN (multN n m) m
 -- Testing
 ----------
 main = do
-    print $ multP (T I) (T (T I)) -- T (T (T (T (T I))))
+    print $ nn_pp (I)
 
 
 
