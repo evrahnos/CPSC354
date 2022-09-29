@@ -15,7 +15,7 @@ data II = II NN NN
 
 -- Positive integers (to avoid dividing by 0)
 data PP = I | T PP
-  deriving Show
+  deriving (Eq,Show)
 
 -- Rational numbers
 data QQ =  QQ II PP
@@ -68,6 +68,13 @@ subN m O = m
 subN O n = O
 subN (S m) (S n) = subN m n
 
+-- division, eg 13 divided by 5 is 2 
+divN :: NN -> PP -> NN
+divN m n
+    | ((subN m (nn_pp n) == O) && (m /= (nn_pp n))) = O
+    | ((subN m (nn_pp n) == O) && (m == (nn_pp n))) = S O
+    | otherwise                                     = S (divN (subN m (nn_pp n)) n)
+
 ----------------
 -- II Arithmetic
 ----------------
@@ -119,4 +126,4 @@ normalizeI (II (S m) (S n)) = normalizeI (II m n)
 -- Testing
 ----------
 main = do
-    print $ subN (S (S (S O))) (S (S O)) -- S O
+    print $ divN (S (S (S (S (S (S (S (S (S (S O)))))))))) (T (T I)) -- S (S (S O))
