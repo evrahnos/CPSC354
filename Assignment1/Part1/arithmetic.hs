@@ -94,17 +94,23 @@ multQ (QQ a b) (QQ c d) = QQ (multI a c) (multP b d)
 -- Normalisation
 ----------------
 
+normalizeI :: II -> II
+normalizeI (II O n) = II O n
+normalizeI (II m O) = II m O
+normalizeI (II (S m) (S n)) = normalizeI (II m n)
 
 ----------------------------------------------------
 -- Converting between VM-numbers and Haskell-numbers
 ----------------------------------------------------
 
 
+------------------------------
+-- Normalisation by Evaluation
+------------------------------
+
+
 ----------
 -- Testing
 ----------
 main = do
-    print $ multQ (QQ (II (S (S (S (S O)))) O) (T (T I))) (QQ (II (S (S O)) O) (I)) -- QQ (II (S (S (S (S (S (S (S (S O)))))))) O) (T (T I))
-
-
-
+    print $ normalizeI (II (S (S O)) (S (S (S (S O))))) -- II O (S (S O))
