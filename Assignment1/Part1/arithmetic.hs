@@ -75,6 +75,10 @@ divN m n
     | ((subN m (nn_pp n) == O) && (m == (nn_pp n))) = S O
     | otherwise                                     = S (divN (subN m (nn_pp n)) n)
 
+-- remainder, eg 13 modulo by 5 is 3
+modN :: NN -> PP -> NN
+modN m n = subN m (multN (nn_pp n) (divN m n))
+
 ----------------
 -- II Arithmetic
 ----------------
@@ -126,4 +130,4 @@ normalizeI (II (S m) (S n)) = normalizeI (II m n)
 -- Testing
 ----------
 main = do
-    print $ divN (S (S (S (S (S (S (S (S (S (S O)))))))))) (T (T I)) -- S (S (S O))
+    print $ modN (S (S (S (S (S (S (S (S (S (S (S (S (S O))))))))))))) (T (T (T (T I)))) -- S (S (S O))
