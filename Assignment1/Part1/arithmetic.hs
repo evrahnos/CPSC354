@@ -62,6 +62,12 @@ multN :: NN -> NN -> NN
 multN O m = O
 multN (S n) m = addN (multN n m) m
 
+-- subtract natural numbers
+subN :: NN -> NN -> NN
+subN m O = m
+subN O n = O
+subN (S m) (S n) = subN m n
+
 ----------------
 -- II Arithmetic
 ----------------
@@ -113,4 +119,4 @@ normalizeI (II (S m) (S n)) = normalizeI (II m n)
 -- Testing
 ----------
 main = do
-    print $ normalizeI (II (S (S O)) (S (S (S (S O))))) -- II O (S (S O))
+    print $ subN (S (S (S O))) (S (S O)) -- S O
