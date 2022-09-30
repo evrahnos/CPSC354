@@ -95,9 +95,13 @@ multI (II a b) (II c d) = II (addN (multN a c) (multN b d)) (addN (multN a d) (m
 negI :: II -> II
 negI (II a b) = II b a
 
--- convert numbers of type II to numbers of type NN (assuming the integer is positive)
+-- Convert numbers of type II to numbers of type NN (assuming the integer is positive)
 nn_ii :: II -> NN
 nn_ii (II m n) = subN m n
+
+-- Equality of integers
+instance Eq II where
+  (II a b) == (II c d) = (nn_ii (II a b)) == (nn_ii (II c d))
 
 ----------------
 -- QQ Arithmetic
@@ -134,4 +138,8 @@ normalizeI (II (S m) (S n)) = normalizeI (II m n)
 -- Testing
 ----------
 main = do
-    print $ nn_ii (II (S (S (S (S (S (S (S O))))))) (S (S (S (S O))))) -- S (S (S O))
+    print $ (II (S O) O) == (II (S O) O) -- True
+    print $ (II (S O) O) == (II O O) -- False
+    print $ (II O O) == (II (S O) O) -- False
+    print $ (II O O) == (II O O) -- True
+    print $ (II (S (S (S O))) O) == (II (S (S (S O))) O) -- True
