@@ -156,6 +156,9 @@ int_pp :: PP -> Integer
 int_pp I = 1
 int_pp (T m) = 1 + (int_pp m)
 
+float_qq :: QQ -> Float
+float_qq (QQ (II m n) p) = (fromIntegral (int_ii (II m n)) / fromIntegral (int_pp p))
+
 ------------------------------
 -- Normalisation by Evaluation
 ------------------------------
@@ -165,6 +168,6 @@ int_pp (T m) = 1 + (int_pp m)
 -- Testing
 ----------
 main = do
-    print $ int_pp (T (T (T (T I)))) -- 5
-    print $ int_pp I -- 1
+    print $ float_qq (QQ (II (S (S (S (S (S (S O)))))) (S O)) (T I)) -- 5/2 = 2.5
+    print $ float_qq (QQ (II (S O) (S O)) I) -- 0.0
 
