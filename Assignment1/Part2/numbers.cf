@@ -3,5 +3,6 @@ Times. Exp1 ::= Exp1 "*" Exp2 ; -- 1+2*3 = 1+(2*3)
 Num. Exp2 ::= Integer ; 
 Subtract. Exp ::= Exp "-" Exp1 ; -- 1-2*3 = 1-(2*3)
 Negative. Exp2 ::= "-" Exp2 ; -- 3+-2 = 3+(-2), -3*-4 = (-3)*(-4)
+Divide. Exp1 ::= Exp1 "/" Exp2 ;
 
 coercions Exp 2 ;
