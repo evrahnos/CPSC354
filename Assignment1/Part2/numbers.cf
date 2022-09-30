@@ -1,8 +1,9 @@
 Plus. Exp ::= Exp "+" Exp1 ;
 Times. Exp1 ::= Exp1 "*" Exp2 ; -- 1+2*3 = 1+(2*3)
-Num. Exp2 ::= Integer ; 
+Num. Exp3 ::= Integer ; 
 Subtract. Exp ::= Exp "-" Exp1 ; -- 1-2*3 = 1-(2*3)
-Negative. Exp2 ::= "-" Exp2 ; -- 3+-2 = 3+(-2), -3*-4 = (-3)*(-4)
-Divide. Exp1 ::= Exp1 "/" Exp2 ;
+Negative. Exp3 ::= "-" Exp3 ; -- 3+-2 = 3+(-2), -3*-4 = (-3)*(-4)
+Divide. Exp1 ::= Exp1 "/" Exp2 ; -- 3+4/2 = 3+(4/2)
+Exponent. Exp2 ::= Exp2 "^" Exp3 ; -- 4+2^2 = 4+(2^2), -3^-2 = (-3)^(-2)
 
-coercions Exp 2 ;
+coercions Exp 3 ;
