@@ -8,3 +8,4 @@ eval (Plus n m) = (eval n) + (eval m)
 eval (Times n m) = (eval n) * (eval m)
 eval (Subtract n m) = (eval n) - (eval m) -- 6-3*2 == 0
 eval (Negative n) = - (eval n) -- -3*-4 == 12
+eval (Divide n m) = (eval n) `div` (eval m) -- 15/4 == 3
