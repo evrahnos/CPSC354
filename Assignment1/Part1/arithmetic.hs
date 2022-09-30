@@ -152,6 +152,10 @@ pp_int :: Integer -> PP
 pp_int 1 = I
 pp_int m = T (pp_int (m-1))
 
+int_pp :: PP -> Integer
+int_pp I = 1
+int_pp (T m) = 1 + (int_pp m)
+
 ------------------------------
 -- Normalisation by Evaluation
 ------------------------------
@@ -161,6 +165,6 @@ pp_int m = T (pp_int (m-1))
 -- Testing
 ----------
 main = do
-    print $ pp_int 5 -- T (T (T (T I)))
-    print $ pp_int 1 -- I
+    print $ int_pp (T (T (T (T I)))) -- 5
+    print $ int_pp I -- 1
 
