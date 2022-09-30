@@ -132,6 +132,10 @@ normalizeI (II (S m) (S n)) = normalizeI (II m n)
 -- Converting between VM-numbers and Haskell-numbers
 ----------------------------------------------------
 
+-- Precondition: Inputs are non-negative
+nn_int :: Integer -> NN
+nn_int 0 = O
+nn_int m = S (nn_int (m-1))
 
 ------------------------------
 -- Normalisation by Evaluation
@@ -142,8 +146,5 @@ normalizeI (II (S m) (S n)) = normalizeI (II m n)
 -- Testing
 ----------
 main = do
-    print $ (QQ (II (S O) O) I) == (QQ (II (S (S O)) (S O)) I) -- True
-    print $ (QQ (II O O) (T I)) == (QQ (II O O) I) -- False
-    print $ (QQ (II O O) I) == (QQ (II O O) (T I)) -- False
-    print $ (QQ (II O O) I) == (QQ (II O O) I) -- True
-    print $ (QQ (II (S (S (S O))) (S (S O))) (T I)) == (QQ (II (S (S O)) (S O)) (T I)) -- True
+    print $ nn_int 4 -- S (S (S (S O)))
+    print $ nn_int 0 -- O
