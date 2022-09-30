@@ -115,6 +115,10 @@ addQ (QQ a b) (QQ c d) = QQ (addI (multI a (ii_pp d)) (multI (ii_pp b) c)) (mult
 multQ :: QQ -> QQ -> QQ
 multQ (QQ a b) (QQ c d) = QQ (multI a c) (multP b d)
 
+-- Equality of fractions
+instance Eq QQ where
+  (QQ a b) == (QQ c d) = (a == c) && (b == d)
+
 ----------------
 -- Normalisation
 ----------------
@@ -138,8 +142,8 @@ normalizeI (II (S m) (S n)) = normalizeI (II m n)
 -- Testing
 ----------
 main = do
-    print $ (II (S O) O) == (II (S O) O) -- True
-    print $ (II (S O) O) == (II O O) -- False
-    print $ (II O O) == (II (S O) O) -- False
-    print $ (II O O) == (II O O) -- True
-    print $ (II (S (S (S O))) O) == (II (S (S (S O))) O) -- True
+    print $ (QQ (II (S O) O) I) == (QQ (II (S (S O)) (S O)) I) -- True
+    print $ (QQ (II O O) (T I)) == (QQ (II O O) I) -- False
+    print $ (QQ (II O O) I) == (QQ (II O O) (T I)) -- False
+    print $ (QQ (II O O) I) == (QQ (II O O) I) -- True
+    print $ (QQ (II (S (S (S O))) (S (S O))) (T I)) == (QQ (II (S (S O)) (S O)) (T I)) -- True
