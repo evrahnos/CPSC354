@@ -147,6 +147,11 @@ ii_int m = (II (nn_int m) O)
 int_ii :: II -> Integer
 int_ii (II m n) = int_nn (subN m n)
 
+-- Precondition: Inputs are positive
+pp_int :: Integer -> PP
+pp_int 1 = I
+pp_int m = T (pp_int (m-1))
+
 ------------------------------
 -- Normalisation by Evaluation
 ------------------------------
@@ -156,6 +161,6 @@ int_ii (II m n) = int_nn (subN m n)
 -- Testing
 ----------
 main = do
-    print $ int_ii (II (S (S (S (S (S O))))) O) -- 5
-    print $ int_ii (II O O) -- 0
+    print $ pp_int 5 -- T (T (T (T I)))
+    print $ pp_int 1 -- I
 
