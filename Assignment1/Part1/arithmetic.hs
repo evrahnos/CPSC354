@@ -115,15 +115,9 @@ addQ (QQ a b) (QQ c d) = QQ (addI (multI a (ii_pp d)) (multI (ii_pp b) c)) (mult
 multQ :: QQ -> QQ -> QQ
 multQ (QQ a b) (QQ c d) = QQ (multI a c) (multP b d)
 
-gcdN :: NN -> NN -> NN
-gcdN a b
-    | (a == b) = a
-    | ((subN b a) == O) = (gcdN (subN a b) b)
-    | otherwise = (gcdN a (subN b a))
-
--- Equality of fractions
+-- Equality of fractions (checks for reduced fractions)
 instance Eq QQ where
-  (QQ a b) == (QQ c d) = (a == c) && (b == d)
+  (QQ a b) == (QQ c d) = (multI a (ii_pp d)) == (multI c (ii_pp b))
 
 ----------------
 -- Normalisation
@@ -174,6 +168,7 @@ float_qq (QQ (II m n) p) = (fromIntegral (int_ii (II m n)) / fromIntegral (int_p
 -- Testing
 ----------
 main = do
-    print $ int_nn (gcdN (nn_int 96) (nn_int 62)) -- 2
-    print $ int_nn (gcdN (nn_int 23) (nn_int 46)) -- 23
+    print $ (QQ (ii_int 6) (pp_int 3)) == (QQ (ii_int 2) (pp_int 1)) -- 6/3 == 2/1 = True
+    print $ (QQ (ii_int 5) (pp_int 3)) == (QQ (ii_int 2) (pp_int 1)) -- 5/3 == 2/1 = False
+    print $ (QQ (ii_int 0) (pp_int 3)) == (QQ (ii_int 0) (pp_int 1)) -- 0/3 == 0/1 = True
 
