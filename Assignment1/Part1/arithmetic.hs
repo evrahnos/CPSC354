@@ -137,6 +137,10 @@ nn_int :: Integer -> NN
 nn_int 0 = O
 nn_int m = S (nn_int (m-1))
 
+int_nn :: NN->Integer
+int_nn O = 0
+int_nn (S m) = 1 + (int_nn m)
+
 ------------------------------
 -- Normalisation by Evaluation
 ------------------------------
@@ -146,5 +150,5 @@ nn_int m = S (nn_int (m-1))
 -- Testing
 ----------
 main = do
-    print $ nn_int 4 -- S (S (S (S O)))
-    print $ nn_int 0 -- O
+    print $ int_nn (S (S (S (S O)))) -- 4
+    print $ int_nn O -- 0
