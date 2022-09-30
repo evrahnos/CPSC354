@@ -141,6 +141,9 @@ int_nn :: NN->Integer
 int_nn O = 0
 int_nn (S m) = 1 + (int_nn m)
 
+ii_int :: Integer -> II
+ii_int m = (II (nn_int m) O)
+
 ------------------------------
 -- Normalisation by Evaluation
 ------------------------------
@@ -150,5 +153,6 @@ int_nn (S m) = 1 + (int_nn m)
 -- Testing
 ----------
 main = do
-    print $ int_nn (S (S (S (S O)))) -- 4
-    print $ int_nn O -- 0
+    print $ ii_int 5 -- II (S (S (S (S (S O))))) O
+    print $ ii_int 0 -- II O O
+
