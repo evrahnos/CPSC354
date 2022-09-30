@@ -163,12 +163,12 @@ float_qq (QQ (II m n) p) = (fromIntegral (int_ii (II m n)) / fromIntegral (int_p
 -- Normalisation by Evaluation
 ------------------------------
 
+nbe :: II -> II
+nbe (II m n) = ii_int (int_ii (II m n))
 
 ----------
 -- Testing
 ----------
 main = do
-    print $ (QQ (ii_int 6) (pp_int 3)) == (QQ (ii_int 2) (pp_int 1)) -- 6/3 == 2/1 = True
-    print $ (QQ (ii_int 5) (pp_int 3)) == (QQ (ii_int 2) (pp_int 1)) -- 5/3 == 2/1 = False
-    print $ (QQ (ii_int 0) (pp_int 3)) == (QQ (ii_int 0) (pp_int 1)) -- 0/3 == 0/1 = True
+    print $ nbe (II (nn_int 6) (nn_int 4)) -- II (S (S O)) O
 
