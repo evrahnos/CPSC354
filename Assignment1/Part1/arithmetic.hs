@@ -95,6 +95,10 @@ multI (II a b) (II c d) = II (addN (multN a c) (multN b d)) (addN (multN a d) (m
 negI :: II -> II
 negI (II a b) = II b a
 
+-- convert numbers of type II to numbers of type NN (assuming the integer is positive)
+nn_ii :: II -> NN
+nn_ii (II m n) = subN m n
+
 ----------------
 -- QQ Arithmetic
 ----------------
@@ -130,4 +134,4 @@ normalizeI (II (S m) (S n)) = normalizeI (II m n)
 -- Testing
 ----------
 main = do
-    print $ modN (S (S (S (S (S (S (S (S (S (S (S (S (S O))))))))))))) (T (T (T (T I)))) -- S (S (S O))
+    print $ nn_ii (II (S (S (S (S (S (S (S O))))))) (S (S (S (S O))))) -- S (S (S O))
