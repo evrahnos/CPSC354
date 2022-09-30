@@ -11,3 +11,4 @@ eval (Negative n) = - (eval n) -- -3*-4 == 12
 eval (Divide n m) = (eval n) `div` (eval m) -- 15/4 == 3
 eval (Exponent n m) = (eval n) ^ (eval m) -- 2^4/3 == 5
 eval (Modulo n m) = (eval n) `mod` (eval m) -- 12%5 == 2
+eval (Abs n) = abs (eval n) -- |-3^3| = 27
