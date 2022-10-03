@@ -475,6 +475,194 @@ The abstract syntax tree of $1+2+3$ would match the tree of $(1+2)+3$. This is b
 \end{tikzpicture}
 \hfil
 
+\subsection{Week 5}
+After generating a working parser demonstrating lambda calculus, linearized abstract syntax trees and 2-dimensional notation abstract syntax trees can be generated for the below expressions.
+\begin{lstlisting}[language=Haskell]
+-- x
+x 
+Prog (EVar (Id "x"))
+\end{lstlisting}
+
+\hfil
+\begin{tikzpicture}
+\Tree[.Prog [.EVar [.Id [."x" ]]]]
+\end{tikzpicture}
+\hfil
+
+\newpage
+\begin{lstlisting}[language=Haskell]
+-- x x
+x x
+Prog (EApp (EVar (Id "x")) (EVar (Id "x")))
+\end{lstlisting}
+
+\hfil
+\begin{tikzpicture}
+\Tree[.Prog [.EApp [.EVar [.Id [."x" ]]]
+                   [.EVar [.Id [."x" ]]]]]
+\end{tikzpicture}
+\hfil
+
+\begin{lstlisting}[language=Haskell]
+-- x y
+x y
+Prog (EApp (EVar (Id "x")) (EVar (Id "y")))
+\end{lstlisting}
+
+\hfil
+\begin{tikzpicture}
+\Tree[.Prog [.EApp [.EVar [.Id [."x" ]]]
+                   [.EVar [.Id [."y" ]]]]]
+\end{tikzpicture}
+\hfil
+
+\begin{lstlisting}[language=Haskell]
+-- x y z
+x y z
+Prog (EApp (EApp (EVar (Id "x")) (EVar (Id "y"))) (EVar (Id "z")))
+\end{lstlisting}
+
+\hfil
+\begin{tikzpicture}
+\Tree[.Prog [.EApp [.EApp [.EVar [.Id [."x" ]]]
+                          [.EVar [.Id [."y" ]]]]
+                   [.EVar [.Id [."z" ]]]]]
+\end{tikzpicture}
+\hfil
+
+\begin{lstlisting}[language=Haskell]
+-- \ x.x
+\ x . x
+Prog (EAbs (Id "x") (EVar (Id "x")))
+\end{lstlisting}
+
+\hfil
+\begin{tikzpicture}
+\Tree[.Prog [.EAbs [.Id [."x" ]]
+                   [.EVar [.Id [."x" ]]]]]
+\end{tikzpicture}
+\hfil
+
+\begin{lstlisting}[language=Haskell]
+-- \ x.x x
+\ x . x x
+Prog (EAbs (Id "x") (EApp (EVar (Id "x")) (EVar (Id "x"))))
+\end{lstlisting}
+
+\hfil
+\begin{tikzpicture}
+\Tree[.Prog [.EAbs [.Id [."x" ]]
+                   [.EApp [.EVar [.Id [."x" ]]]
+                          [.EVar [.Id [."x" ]]]]]]
+\end{tikzpicture}
+\hfil
+
+\newpage
+\begin{lstlisting}[language=Haskell]
+-- (\ x . (\ y . x y)) (\ x.x) z
+\ x . \ y . x y (\ x . x)z
+Prog (EApp (EApp (EAbs (Id "x") (EAbs (Id "y") (EApp (EVar (Id "x")) (EVar (Id "y"))))) (EAbs (Id "x") (EVar (Id "x")))) (EVar (Id "z")))
+\end{lstlisting}
+
+\hfil
+\begin{tikzpicture}
+\Tree[.Prog [.EApp [.EApp [.EAbs [.Id [."x" ]]
+                                 [.EAbs [.Id [."y" ]]
+                                        [.EApp [.EVar [.Id [."x" ]]]
+                                               [.EVar [.Id [."y" ]]]]]]
+                          [.EAbs [.Id [."x" ]]
+                                 [.EVar [.Id [."x" ]]]]]
+                   [.EVar [.Id [."z" ]]]]]
+\end{tikzpicture}
+\hfil
+
+\newpage
+\begin{lstlisting}[language=Haskell]
+-- (\ x . \ y . x y z) a b c
+\ x . \ y . x y z a b c
+Prog (EApp (EApp (EApp (EAbs (Id "x") (EAbs (Id "y") (EApp (EApp (EVar (Id "x")) (EVar (Id "y"))) (EVar (Id "z"))))) (EVar (Id "a"))) (EVar (Id "b"))) (EVar (Id "c")))
+\end{lstlisting}
+
+\hfil
+\begin{tikzpicture}
+\Tree[.Prog [.EApp [.EApp [.EApp [.EAbs [.Id [."x" ]]
+                                        [.EAbs [.Id [."y" ]]
+                                               [.EApp [.EApp [.EVar [.Id [."x" ]]]
+                                                             [.EVar [.Id [."y" ]]]]
+                                                      [.EVar [.Id [."z" ]]]]]]
+                                 [.EVar [.Id [."a" ]]]]
+                          [.EVar [.Id [."b" ]]]]
+                   [.EVar [.Id [."c" ]]]]]
+\end{tikzpicture}
+\hfil
+
+\noindent The following will show the reduction of several lambda calculus expressions.
+\begin{lstlisting}[language=Haskell]
+(\x.x) a =
+    a
+\end{lstlisting}
+\begin{lstlisting}[language=Haskell]
+\x.x a =
+    \x.x a
+\end{lstlisting}
+\begin{lstlisting}[language=Haskell]
+(\x.\y.x) a b =
+    (\y.a) b =
+    a
+\end{lstlisting}
+\begin{lstlisting}[language=Haskell]
+(\x.\y.y) a b =
+    (\y.y) b =
+    b
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[language=Haskell]
+(\x.\y.x) a b c =
+    (\y.a) b c =
+    a c
+\end{lstlisting}
+\begin{lstlisting}[language=Haskell]
+(\x.\y.y) a b c =
+    (\y.a) b c =
+    b c
+\end{lstlisting}
+\begin{lstlisting}[language=Haskell]
+(\x.\y.x) a (b c) =
+    (\y.a) (b c) =
+    a
+\end{lstlisting}
+\begin{lstlisting}[language=Haskell]
+(\x.\y.y) a (b c) =
+    (\y.y) (b c) =
+    b c
+\end{lstlisting}
+\begin{lstlisting}[language=Haskell]
+(\x.\y.x) (a b) c =
+    (\y.(a b)) c =
+    a b
+\end{lstlisting}
+\begin{lstlisting}[language=Haskell]
+(\x.\y.y) (a b) c =
+    (\y.y) c =
+    c
+\end{lstlisting}
+\begin{lstlisting}[language=Haskell]
+(\x.\y.x) (a b c) =
+    \y.(a b c)
+\end{lstlisting}
+\begin{lstlisting}[language=Haskell]
+(\x.\y.y) (a b c) =
+    \y.y
+\end{lstlisting}
+\begin{lstlisting}[language=Haskell]
+evalCBN (\x.x)((\y.y)a) =
+    evalCBN (EApp (EAbs (Id "x") (EVar (Id "x"))) (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a")))) =
+    evalCBN (subst (Id "x") (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a"))) (EVar (Id "x"))) =
+    evalCBN (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a"))) =
+    evalCBN (subst (Id "y") (EVar (Id "a")) (EVar (Id "y"))) =
+    EVar (Id "a")
+\end{lstlisting}
+
 \section{Project}
 
 To be written at a later date.
