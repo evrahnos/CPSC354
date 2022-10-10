@@ -474,7 +474,6 @@ The abstract syntax tree of $1+2+3$ would match the tree of $(1+2)+3$. This is b
                  [.3(Exp1) ]]
 \end{tikzpicture}
 \hfil
-
 \subsection{Week 5}
 After generating a working parser demonstrating lambda calculus, linearized abstract syntax trees and 2-dimensional notation abstract syntax trees can be generated for the below expressions.
 \begin{lstlisting}[language=Haskell]
@@ -662,10 +661,35 @@ evalCBN (\x.x)((\y.y)a) =
     evalCBN (subst (Id "y") (EVar (Id "a")) (EVar (Id "y"))) =
     EVar (Id "a")
 \end{lstlisting}
+\newpage
+\subsection{Week 6}
+The following is an evaluation of a longer lambda calculus expression.
+
+\begin{lstlisting}[language=Haskell]
+-- (\exp . \two . \three . exp two three)
+-- (\m.\n. m n)
+-- (\f.\x. f (f x))
+-- (\f.\x. f (f (f x)))
+
+    = ((\m.\n. m n) (\f.\x. f (f x)) (\f.\x. f (f (f x))))
+    = ((\m.\n. m n) (\f.\x. f (f x)) (\f2.\x2. f2 (f2 (f2 x2))))
+    = ((\n. (\f.\x. f (f x)) n) (\f2.\x2. f2 (f2 (f2 x2))))
+    = ((\f.\x. f (f x)) (\f2.\x2. f2 (f2 (f2 x2))))
+    = (\x. (\f2.\x2. f2 (f2 (f2 x2))) ((\f2.\x2. f2 (f2 (f2 x2))) x))
+    = (\x. (\x2. ((\f2.\x2. f2 (f2 (f2 x2))) x) (((\f2.\x2. f2 (f2 (f2 x2))) x) (((\f2.\x2. f2 (f2 (f2 x2))) x) x2))))
+    = (\x. (\x2. (x (x (x (((\f2.\x2. f2 (f2 (f2 x2))) x) (((\f2.\x2. f2 (f2 (f2 x2))) x) x2)))))))
+    = (\x. (\x2. (x (x (x (((\x2. x (x (x x2)))) (((\f2.\x2. f2 (f2 (f2 x2))) x) x2)))))))
+    = (\x. (\x2. (x (x (x ((\x2. x (x (x x2))) (((\f2.\x2. f2 (f2 (f2 x2))) x) x2)))))))
+    = (\x. (\x2. (x (x (x (x (x (x (((\f2.\x2. f2 (f2 (f2 x2))) x) x2)))))))))
+    = (\x. (\x2. (x (x (x (x (x (x ((\x2. x (x (x x2))) x2)))))))))
+    = \x. \x2. x (x (x (x (x (x (x (x (x x2))))))))
+\end{lstlisting}
 
 \section{Project}
+This section will contain all details for my final project of this course.
+\subsection{Specification}
+For my final project, I plan to learn a new programming language, give a concise but informative tutorial on it, and develop a project that ties in to the course material. For this, I plan to learn either Ruby, Elixir, or PureScript. Ruby is in use more than the other two suggestions, which is why it is listed as a potential candidate. Learning a new popular language could be beneficial for personal purposes. Elixir and PureScript are suggestions because they are similar to the language that is focused on in this course, Haskell. They use similar concepts, such as pattern matching and functional programming. My goal is to both learn a relevant language and utilize some concepts learned in the course to create a meaningful project that represents my knowledge of programming languages. The language and representative project of choice will be determined in the near future.
 
-To be written at a later date.
 
 \section{Conclusions}\label{conclusions}
 
