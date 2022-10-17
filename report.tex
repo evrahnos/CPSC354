@@ -655,11 +655,11 @@ Prog (EApp (EApp (EApp (EAbs (Id "x") (EAbs (Id "y") (EApp (EApp (EVar (Id "x"))
 \end{lstlisting}
 \begin{lstlisting}[language=Haskell]
 evalCBN (\x.x)((\y.y)a) =
-    evalCBN (EApp (EAbs (Id "x") (EVar (Id "x"))) (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a")))) =
-    evalCBN (subst (Id "x") (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a"))) (EVar (Id "x"))) =
-    evalCBN (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a"))) =
-    evalCBN (subst (Id "y") (EVar (Id "a")) (EVar (Id "y"))) =
-    EVar (Id "a")
+    evalCBN (EApp (EAbs (Id "x") (EVar (Id "x"))) (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a")))) = -- converted to concrete format
+    evalCBN (subst (Id "x") (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a"))) (EVar (Id "x"))) = -- line 27
+    evalCBN (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a"))) = -- reduction of subst in one step
+    evalCBN (subst (Id "y") (EVar (Id "a")) (EVar (Id "y"))) = -- line 27
+    EVar (Id "a") -- reduction of subst in one step
 \end{lstlisting}
 \newpage
 \subsection{Week 6}
@@ -684,6 +684,196 @@ The following is an evaluation of a longer lambda calculus expression.
     = (\x. (\x2. (x (x (x (x (x (x ((\x2. x (x (x x2))) x2)))))))))
     = \x. \x2. x (x (x (x (x (x (x (x (x x2))))))))
 \end{lstlisting}
+
+\subsection{Week 7}
+This section will investigate bound and free variables in a lambda-calculus interpreter.
+
+\noindent The following is a section of the interpreter code.
+\begin{lstlisting}[language=Haskell]
+evalCBN (EApp e1 e2) = case (evalCBN e1) of -- line 5
+(EAbs i e3) -> evalCBN (subst i e2 e3)           -- line 6
+e3 -> EApp e3 e2                                 -- line 7
+\end{lstlisting}
+
+\noindent In this code, all variables (\texttt{e1}, \texttt{e2}, \texttt{e3}, and \texttt{i}) are \textbf{bound variables}. This is because the variable names can be changed without changing the function \texttt{evalCBN}.\newline
+
+\noindent \texttt{e1}:
+
+Binder: \texttt{EApp e1 e2}
+
+Scope: \texttt{case (evalCBN e1) of
+| (EAbs i e3) -> evalCBN (subst i e2 e3)
+| e3 -> EApp e3 e2}
+
+\noindent \texttt{e2}:
+
+Binder: \texttt{EApp e1 e2}
+
+Scope: \texttt{case (evalCBN e1) of
+| (EAbs i e3) -> evalCBN (subst i e2 e3)
+| e3 -> EApp e3 e2}
+
+\noindent \texttt{e3}:
+
+Binder (line 6): \texttt{EAbs i e3}
+
+Scope (line 6): \texttt{subst i e2 e3}
+
+Binder (line 7): \texttt{e3}
+
+Scope (line 7): \texttt{EApp e3 e2}
+
+\noindent \texttt{i}:
+
+Binder: \texttt{EAbs i e3}
+
+Scope: \texttt{subst i e2 e3}
+
+\newpage
+
+The following is another section of the interpreter code.
+\begin{lstlisting}[language=Haskell]
+    subst id s (EAbs id1 e1) =           -- line 18
+    let f = fresh (EAbs id1 e1)          -- line 20
+        e2 = subst id1 (EVar f) e1 in   -- line 21
+        EAbs f (subst id s e2)           -- line 22
+\end{lstlisting}
+
+\noindent In this code, all variables (\texttt{id}, \texttt{s}, \texttt{id1}, \texttt{e1}, \texttt{f}, and \texttt{e2}) are \textbf{bound variables}. This is because the variable names can be changed without changing the function \texttt{subst}.\newline
+
+\noindent \texttt{id}:
+
+Binder: \texttt{subst id s (EAbs id1 e1)}
+
+Scope: \texttt{let f = fresh (EAbs id1 e1)
+| e2 = subst id1 (EVar f) e1 in
+| EAbs f (subst id s e2)}\\
+
+\noindent \texttt{s}:
+
+Binder: \texttt{subst id s (EAbs id1 e1)}
+
+Scope: \texttt{let f = fresh (EAbs id1 e1)
+| e2 = subst id1 (EVar f) e1 in
+| EAbs f (subst id s e2)}\\
+
+\noindent \texttt{id1}:
+
+Binder: \texttt{EAbs id1 e1}
+
+Scope: \texttt{let f = fresh (EAbs id1 e1)
+| e2 = subst id1 (EVar f) e1 in
+| EAbs f (subst id s e2)}\\
+
+\noindent \texttt{e1}:
+
+Binder: \texttt{EAbs id1 e1}
+
+Scope: \texttt{let f = fresh (EAbs id1 e1)
+| e2 = subst id1 (EVar f) e1 in
+| EAbs f (subst id s e2)}\\
+
+\noindent \texttt{f}:
+
+Binder: \texttt{f = fresh (EAbs id1 e1)}
+
+Scope: \texttt{| e2 = subst id1 (EVar f) e1 in
+| EAbs f (subst id s e2)}
+
+\noindent \texttt{e2}:
+
+Binder: \texttt{e2 = subst id1 (EVar f) e1}
+
+Scope: \texttt{EAbs f (subst id s e2)}\\
+
+\noindent Another example of evalCBN is demonstrated here:
+
+\begin{lstlisting}[language=Haskell]
+evalCBN (\x.\y.x) y z =
+    evalCBN (EApp (EApp (EAbs (Id "x") (EAbs (Id "y") (EVar (Id "x")))) (EVar (Id "y"))) (EVar (Id "z"))) = -- converted to concrete format
+    evalCBN (EApp (EApp (EAbs (Id "x") (EAbs (Id "y0") (EVar (Id "x")))) (EVar (Id "y"))) (EVar (Id "z"))) = -- fresh applied in one step
+    evalCBN (EApp (EApp (evalCBN (subst (Id "y0") (EVar (Id "y")) (EVar (Id "x")))) (EVar (Id "y"))) (EVar (Id "z"))) = -- line 6
+    evalCBN (EApp (EAbs (Id "y0") (EVar (Id "y"))) (EVar (Id "z"))) = -- subst reduction
+    evalCBN (EApp (evalCBN (subst (Id "y0") (EVar (Id "z")) (EVar (Id "y")))) (EVar (Id "z"))) = -- line 6
+    evalCBN (EVar (Id "y")) = -- subst reduction
+    EVar (Id "y") -- evalCBN x = x
+\end{lstlisting}
+
+The following is an analysis of several abstract reduction systems.
+
+\noindent \texttt{A=\{\}}
+
+A picture will not be drawn for this, for it is just an empty set. This ARS is terminating because it cannot reduce any further. It is confluent because every peak converges to the same result. It has a unique normal form (which is the empty set).\\
+
+\noindent \texttt{A=\{a\} and R=\{\}}
+
+A picture will not be drawn for this, for it is just the letter "a". This ARS is terminating because it cannot reduce any further. It is confluent because every peak converges to the same result. It has a unique normal form (which is "a").\\
+
+\noindent \texttt{A=\{a\} and R=\{(a,a)\}}\\
+\begin{center}
+    \includegraphics{ars3.png}
+\end{center}
+This ARS is not terminating because it can always reduce further. It is confluent because every peak converges to the same result. It has a unique normal form (which is "a").\\
+
+\noindent \texttt{A=\{a,b,c\} and R=\{(a,b),(a,c)\}}\\
+\begin{center}
+    \includegraphics{ars4.png}
+\end{center}
+This ARS is terminating because it cannot reduce any further. It is not confluent since the computations do not converge back. It does not have a unique normal form.\\
+
+\noindent \texttt{A=\{a,b\} and R=\{(a,a),(a,b)\}}\\
+\begin{center}
+    \includegraphics{ars5.png}
+\end{center}
+This ARS is not terminating because it can always reduce further. It is not confluent since the computations do not converge back. It does not have a unique normal form.\\
+
+\noindent \texttt{A=\{a,b,c\} and R=\{(a,b),(b,b),(a,c)\}}\\
+\begin{center}
+    \includegraphics{ars6.png}
+\end{center}
+This ARS is not terminating because it can always reduce further. It is not confluent since the computations do not converge back. It does not have a unique normal form.\\
+
+\noindent \texttt{A=\{a,b,c\} and R=\{(a,b),(b,b),(a,c),(c,c)\}}\\
+\begin{center}
+    \includegraphics{ars7.png}
+\end{center}
+This ARS is not terminating because it can always reduce further. It is not confluent since the computations do not converge back. It does not have a unique normal form.
+\newpage
+Lastly, the 8 different cases of confluence, termination, and presence of unique normal forms will be shown.
+
+True, True, True:
+\begin{center}
+    \includegraphics{ex1.png}
+\end{center}
+
+True, True, False: Congruence implies that there are unique normal forms, so there is no example of this case.\\
+
+True, False, True:
+\begin{center}
+    \includegraphics{ex3.png}
+\end{center}
+
+True, False, False: Congruence implies that there are unique normal forms, so there is no example of this case.\\
+
+False, True, True:
+\begin{center}
+    \includegraphics{ex5.png}
+\end{center}
+
+False, True, False:
+\begin{center}
+    \includegraphics{ex6.png}
+\end{center}
+
+False, False, True:
+\begin{center}
+    \includegraphics{ex7.png}
+\end{center}
+
+False, False, False:
+\begin{center}
+    \includegraphics{ex8.png}
+\end{center}
 
 \section{Project}
 This section will contain all details for my final project of this course.
