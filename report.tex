@@ -684,7 +684,6 @@ The following is an evaluation of a longer lambda calculus expression.
     = (\x. (\x2. (x (x (x (x (x (x ((\x2. x (x (x x2))) x2)))))))))
     = \x. \x2. x (x (x (x (x (x (x (x (x x2))))))))
 \end{lstlisting}
-
 \subsection{Week 7}
 This section will investigate bound and free variables in a lambda-calculus interpreter.
 
@@ -874,6 +873,24 @@ False, False, False:
 \begin{center}
     \includegraphics{ex8.png}
 \end{center}
+\newpage
+
+\subsection{Week 8}
+The following will investigate properties of the following rewrite system:
+\begin{lstlisting}
+aa -> a
+bb -> b
+ba -> ab
+ab -> ba
+\end{lstlisting}
+
+\noindent \textbf{Termination: } This ARS does not terminate because of the final two rules. There is a cycle between the strings \texttt{ab} and \texttt{ba}, meaning that there is no end to the cycle if there exists either of these strings.\\
+
+\noindent \textbf{Normal forms: } The normal forms of this ARS are therefore an empty string, \texttt{a}, and \texttt{b}. Any string longer than one character with just \texttt{ab} and \texttt{ba} will be rewritten as another same-length string, as per the rewrite rules.\\
+
+\noindent \textbf{Unique normal forms: } These rewrite rules can be slightly altered so that the ARS can be defined as having unique normal forms. If we treat \texttt{a} and \texttt{b} as the base-10 digits \texttt{0} and \texttt{1}, it has a slightly different meaning. Because base-10 numbers inherently have an order (0 before 1), these new rewrite rules will allow constant reduction to a normal form not by length, but by number size.\\
+
+\noindent \textbf{ARS function: } The normal forms of this updated rewrite system would thus be the lowest number possible that can be reduced from the starting string. In terms of \texttt{a} and \texttt{b}, the resulting string would have all \texttt{a}'s to the left and all \texttt{b}'s to the right. However, this letter form does not have much meaning, as the letters do not have a predefined comparison order, and thus cannot be counted as a normal form. The normal forms in terms of \texttt{0} and \texttt{1} has more meaning.
 
 \section{Project}
 This section will contain all details for my final project of this course.
