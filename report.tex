@@ -874,7 +874,6 @@ False, False, False:
     \includegraphics{ex8.png}
 \end{center}
 \newpage
-
 \subsection{Week 8}
 The following will investigate properties of the following rewrite system:
 \begin{lstlisting}
@@ -892,10 +891,44 @@ ab -> ba
 
 \noindent \textbf{ARS function: } The normal forms of this updated rewrite system would thus be the lowest number possible that can be reduced from the starting string. In terms of \texttt{a} and \texttt{b}, the resulting string would have all \texttt{a}'s to the left and all \texttt{b}'s to the right. However, this letter form does not have much meaning, as the letters do not have a predefined comparison order, and thus cannot be counted as a normal form. The normal forms in terms of \texttt{0} and \texttt{1} has more meaning.
 
+\subsection{Week 9}
+Regarding the final project, the following deadlines will be made to keep track of progress of my programming language exploration:\\
+
+\noindent \textbf{November 13}: Demonstrate full knowledge of the Ruby language by having a prototype of a concise Ruby tutorial copmlete.\\
+
+\noindent \textbf{November 20}: Have an idea for the project portion of the report laid out in detail.\\
+
+\noindent \textbf{November 27}: Have said project complete and full within the report.\\
+
+\noindent \textbf{December 4}: Have the critical appraisal completed, and therefore the entirety of the Project section of the report complete.
+\newpage
+\noindent The next section will involve an analysis of the following ARS:
+\begin{lstlisting}
+ba -> ab
+ab -> ba
+ac -> ca
+ca -> ac
+bc -> cb
+cb -> bc
+ 
+aa -> b
+ab -> c
+ac ->  
+bb ->
+cb -> a
+cc -> b
+\end{lstlisting}
+
+\noindent The first thing to note is that with this current version of the ARS, it is not terminating, nor does order of the letters matter. This is because the top half of the ARS does not show the entire ARS to be a complete measure function, and that any combination of letters can be reoriented within the entire string. \\
+
+\noindent Also to note are some normal forms, which include the empty string (from Rules 9 and 10) and the one-character strings (\texttt{a}, \texttt{b}, \texttt{c}). The first thing of notice is that any string larger than 1 character can be reduced to a form without any \texttt{a}s. This is because of the reordering rules. Say we order our string so that all \texttt{a}s appear first, followed by \texttt{b}s and \texttt{c}s. Generally, This would turn every pair of \texttt{a}s into \texttt{b}s, with any lone \texttt{a}s therefore joining with newly created \texttt{b}s to form \texttt{c}s. This observation holds for smaller strings as well, of course including those strings that don't contain \texttt{a} to begin with.\\
+
+\noindent After noticing all strings (except for \texttt{a}) can be reduced to a string without \texttt{a}s, I noticed that if the resulting string has an even number of \texttt{b}s and $C mod 4 == 0$ (where C is the number of \texttt{c}s in the string), then the string will reduce to an empty string. This is dependent on Rule 10 and Rule 12, saying that if all \texttt{c}s eventually reduce to an even number of \texttt{b}s, and there were originally an even number of \texttt{b}s already present in the string, then everything will reduce to an empty string.
+
 \section{Project}
 This section will contain all details for my final project of this course.
 \subsection{Specification}
-For my final project, I plan to learn a new programming language, give a concise but informative tutorial on it, and develop a project that ties in to the course material. For this, I plan to learn either Ruby, Elixir, or PureScript. Ruby is in use more than the other two suggestions, which is why it is listed as a potential candidate. Learning a new popular language could be beneficial for personal purposes. Elixir and PureScript are suggestions because they are similar to the language that is focused on in this course, Haskell. They use similar concepts, such as pattern matching and functional programming. My goal is to both learn a relevant language and utilize some concepts learned in the course to create a meaningful project that represents my knowledge of programming languages. The language and representative project of choice will be determined in the near future.
+For my final project, I plan to learn a new programming language, give a concise but informative tutorial on it, and develop a project that ties in to the course material. For this, I plan to learn Ruby. Learning a new popular language could be beneficial for personal purposes. My goal is to both learn a relevant language and utilize some concepts learned in the course to create a meaningful project that represents my knowledge of programming languages. The representative project of choice will be determined in the near future.
 
 
 \section{Conclusions}\label{conclusions}
