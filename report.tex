@@ -890,7 +890,6 @@ ab -> ba
 \noindent \textbf{Unique normal forms: } These rewrite rules can be slightly altered so that the ARS can be defined as having unique normal forms. If we treat \texttt{a} and \texttt{b} as the base-10 digits \texttt{0} and \texttt{1}, it has a slightly different meaning. Because base-10 numbers inherently have an order (0 before 1), these new rewrite rules will allow constant reduction to a normal form not by length, but by number size.\\
 
 \noindent \textbf{ARS function: } The normal forms of this updated rewrite system would thus be the lowest number possible that can be reduced from the starting string. In terms of \texttt{a} and \texttt{b}, the resulting string would have all \texttt{a}'s to the left and all \texttt{b}'s to the right. However, this letter form does not have much meaning, as the letters do not have a predefined comparison order, and thus cannot be counted as a normal form. The normal forms in terms of \texttt{0} and \texttt{1} has more meaning.
-
 \subsection{Week 9}
 Regarding the final project, the following deadlines will be made to keep track of progress of my programming language exploration:\\
 
@@ -924,6 +923,23 @@ cc -> b
 \noindent Also to note are some normal forms, which include the empty string (from Rules 9 and 10) and the one-character strings (\texttt{a}, \texttt{b}, \texttt{c}). The first thing of notice is that any string larger than 1 character can be reduced to a form without any \texttt{a}s. This is because of the reordering rules. Say we order our string so that all \texttt{a}s appear first, followed by \texttt{b}s and \texttt{c}s. Generally, This would turn every pair of \texttt{a}s into \texttt{b}s, with any lone \texttt{a}s therefore joining with newly created \texttt{b}s to form \texttt{c}s. This observation holds for smaller strings as well, of course including those strings that don't contain \texttt{a} to begin with.\\
 
 \noindent After noticing all strings (except for \texttt{a}) can be reduced to a string without \texttt{a}s, I noticed that if the resulting string has an even number of \texttt{b}s and $C mod 4 == 0$ (where C is the number of \texttt{c}s in the string), then the string will reduce to an empty string. This is dependent on Rule 10 and Rule 12, saying that if all \texttt{c}s eventually reduce to an even number of \texttt{b}s, and there were originally an even number of \texttt{b}s already present in the string, then everything will reduce to an empty string.
+
+\subsection{Week 10}
+The following is a calculation of $fix_F 2$ using equational reasoning.
+
+\begin{lstlisting}[language=Haskell]
+fix_F 2 = (\n. if n == 0 then 1 else n * fix_F (n-1)) 2
+         = if 2 == 0 then 1 else 2 * fix_F (2-1)
+         = 2 * (fix_F 1)
+         = 2 * (\n. if n == 0 then 1 else n * fix_F (n-1)) 1
+         = 2 * (if 1 == 0 then 1 else 1 * fix_F (1-1))
+         = 2 * (1 * fix_F 0)
+         = 2 * (1 * (\n. if n == 0 then 1 else n * fix_F (n-1)) 0)
+         = 2 * (1 * (if 0 == 0 then 1 else 0 * fix_F (0-1)))
+         = 2 * (1 * (1))
+         = 2
+\end{lstlisting}
+
 
 \section{Project}
 This section will contain all details for my final project of this course.
