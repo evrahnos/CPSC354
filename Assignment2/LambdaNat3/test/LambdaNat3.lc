@@ -1,1 +1,1 @@
-let f = (\x . x x) in let mid = f c in f mid
+(\y. y) (minus_one ((\x. S x) (S 0)))
