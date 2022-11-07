@@ -17,6 +17,7 @@ evalCBN ENat0 = ENat0
 evalCBN (ENatS e1) = ENatS (evalCBN e1)
 evalCBN (EIf e1 e2 e3 e4) | e1 == e2 = evalCBN e3
                           | otherwise = evalCBN e4
+evalCBN (ELet id e1 e2) = evalCBN (subst id e1 e2)
 evalCBN x = x -- this is a catch all clause, currently only for variables, must be the last clause of the eval function
 
 -- a quick and dirty way of getting fresh names. Rather inefficient for big terms...
@@ -43,11 +44,5 @@ subst id s (EAbs id1 e1) =
 ----------------------------------------------------------------
 subst id e1 ENat0 = ENat0 
 subst id e1 (ENatS e2) = ENatS (subst id e1 e2)
-subst id (EIf e1 e2 e3 e4) e | e1 == e2 = subst id e3 e
-                             | otherwise = subst id e4 e
-
--- evalCBN (EApp (EAbs (Id "x") (EVar (Id "x"))) (EIf ENat0 ENat0 ENat0 (ENatS ENat0)))
--- evalCBN (subst (Id "x") (EIf ENat0 ENat0 ENat0 (ENatS ENat0)) (EVar (Id "x")))
--- evalCBN (subst (Id "x") (ENat0) (EVar (Id "x")))
--- evalCBN (ENat0)
--- ENat0
+subst id s (EIf e1 e2 e3 e4) = EIf (subst id s e1) (subst id s e2) (subst id s e3) (subst id s e4)
+subst id s (ELet id2 e1 e2) = ELet id2 (subst id s e1) (subst id s e2)

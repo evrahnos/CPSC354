@@ -1,1 +1,1 @@
-S((\x.x) (if 0 = S 0 then 0 else S 0))
+let f = (\x . x x) in let mid = f c in f mid
