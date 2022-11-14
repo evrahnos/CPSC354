@@ -893,7 +893,7 @@ ab -> ba
 \subsection{Week 9}
 Regarding the final project, the following deadlines will be made to keep track of progress of my programming language exploration:\\
 
-\noindent \textbf{November 13}: Demonstrate full knowledge of the Ruby language by having a prototype of a concise Ruby tutorial copmlete.\\
+\noindent \textbf{November 13}: Create a tutorial that covers the evolution of Ruby and the fundamentals of the programming language. The tutorial part will cover these categories: basics, control structures, and collections. Exercises and their answers will be provided.\\
 
 \noindent \textbf{November 20}: Have an idea for the project portion of the report laid out in detail.\\
 
@@ -923,7 +923,6 @@ cc -> b
 \noindent Also to note are some normal forms, which include the empty string (from Rules 9 and 10) and the one-character strings (\texttt{a}, \texttt{b}, \texttt{c}). The first thing of notice is that any string larger than 1 character can be reduced to a form without any \texttt{a}s. This is because of the reordering rules. Say we order our string so that all \texttt{a}s appear first, followed by \texttt{b}s and \texttt{c}s. Generally, This would turn every pair of \texttt{a}s into \texttt{b}s, with any lone \texttt{a}s therefore joining with newly created \texttt{b}s to form \texttt{c}s. This observation holds for smaller strings as well, of course including those strings that don't contain \texttt{a} to begin with.\\
 
 \noindent After noticing all strings (except for \texttt{a}) can be reduced to a string without \texttt{a}s, I noticed that if the resulting string has an even number of \texttt{b}s and $C mod 4 == 0$ (where C is the number of \texttt{c}s in the string), then the string will reduce to an empty string. This is dependent on Rule 10 and Rule 12, saying that if all \texttt{c}s eventually reduce to an even number of \texttt{b}s, and there were originally an even number of \texttt{b}s already present in the string, then everything will reduce to an empty string.
-
 \subsection{Week 10}
 The following is a calculation of $fix_F 2$ using equational reasoning.
 
@@ -939,13 +938,30 @@ fix_F 2 = (\n. if n == 0 then 1 else n * fix_F (n-1)) 2
          = 2 * (1 * (1))
          = 2
 \end{lstlisting}
+\newpage
+
+\subsection{Week 11}
+Some excerpts and my thoughts regarding contracts in the field of financial engineering.\\
+
+\noindent A question I posed:\\
+
+\textbf{Q:} Reading into "Composing Contracts: An Adventure in Financial Engineering", I was wondering about the global-scale technological opportunities of this new way of creating financial contracts. If this method of composing contracts was more widely known today, how would that affect the process of how contracts are done and agreed on? Could it affect the values of the contract themselves?\\
+
+\noindent Excerpts of conversations I replied to:\\
+
+\textbf{Q:} For financial traders making trades with this system, would this system be dangerous for those not capable of understanding the grammar thoroughly? What is to stop someone from making a predatory contract, and obfuscating the malicious details with syntax?\\
+
+\textbf{A:} I was also thinking about the dangerous side of the potential capabilities of creating the entire financial engineering side of contracts. Neutrality in many aspects should be ensured to keep fairness and visibility in this kind of program. For example, a more experienced programmer should not have some kind of advantage over a lesser experienced programmer.\\
+
+\textbf{Q:} If financial experts took the time to learn the language, how beneficial would it really be? In the article it states "identifying the 'right' primitive combinators is quite a challenge." So would it be worth/necessary for financial experts to try? \\
+
+\textbf{A:} I was thinking about the non-contract-related opportunities of this financial language. Even if learning the language perfectly had no beneficial effect to using these contracts, it can be beneficial outside of creating contracts. Programming is widely known as an essential skill in many fields, and it can still prove to be useful at least somewhere else, since financial engineering combines two big seemingly-unrelated fields.
 
 
 \section{Project}
 This section will contain all details for my final project of this course.
 \subsection{Specification}
 For my final project, I plan to learn a new programming language, give a concise but informative tutorial on it, and develop a project that ties in to the course material. For this, I plan to learn Ruby. Learning a new popular language could be beneficial for personal purposes. My goal is to both learn a relevant language and utilize some concepts learned in the course to create a meaningful project that represents my knowledge of programming languages. The representative project of choice will be determined in the near future.
-
 
 \section{Conclusions}\label{conclusions}
 
