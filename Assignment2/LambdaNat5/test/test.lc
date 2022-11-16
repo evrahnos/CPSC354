@@ -1,40 +1,11 @@
-// Example hd test cases
-
-hd one:two // -> one
+// My ELE test cases
+0 less_equal 0 // -> 1
 ;;
-hd one:two:# // -> one
+1 less_equal 0 // -> 0
 ;;
-hd (one:two):# // -> one:two
+0 less_equal 1 // -> 1
 ;;
-hd (one:two:#):# // -> one:two:#
-;;
-(hd one:two:#):# // -> one:#
-
-;; // Example tl test cases
-
-tl one:two // -> two
-;;
-tl one:two:# // -> two
-;;
-tl (one:two):# // -> one:two
-;;
-tl (one:two:#):# // -> one:two:#
-;;
-(tl one:two:#):# // -> two:#
-
-;; // My own test cases
-
-hd # // -> #
-;;
-tl # // -> #
-;;
-hd one:(two:#) // -> one
-;;
-tl one:(two:#) // -> two
-;;
-hd (tl one:((two:three):#):#) // -> hd ((two:three):#) -> two:three
-;;
-tl (hd (one:two):#):# // -> tl (one:two):# -> one:two
+4 less_equal (2 + 3) // -> 1
 
 
 
