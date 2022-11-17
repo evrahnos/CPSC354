@@ -1,0 +1,47 @@
+// PROGRAMS WITH IMPLEMENTATIONS AND TEST CASES 
+
+
+// is_empty: is_empty l evaluates to 1 if l is the empty list and to 0 if l is not empty.
+
+let is_empty = \l. if hd l = # then 1 else 0
+in
+is_empty a:#            // test case with non-empty list a:#, should return 0
+;;
+let is_empty = \l. if hd l = # then 1 else 0
+in
+is_empty #              // test case with empty list #, should return 1
+;;
+
+
+// fib: fib n evaluates to the n-th element of the Fibonacci sequence (zero-indexed) (0,1,1,2,3,5,8,13,...)
+let rec fib = \n. if n=0 then 0 else if n=1 then 1 else fib (n-1) + fib (n-2)
+in
+fib 6                   // test case with the 6th element, should return 8
+;;
+let rec fib = \n. if n=0 then 0 else if n=1 then 1 else fib (n-1) + fib (n-2)
+in
+fib 0                   // test case with the 0th element, should return 0
+;;
+let rec fib = \n. if n=0 then 0 else if n=1 then 1 else fib (n-1) + fib (n-2)
+in
+fib 1                   // test case with the 1st element, should return 1
+;;
+
+tl one:two:three:#
+;;
+
+// length: length l evaluates to the length of a list l
+let rec length = \l. if hd l = # then 0 else if hd l = tl l then 1 else 1 + (length (tl l))
+in
+length a:b:c:d:#          // test case with list a:b:c:#, should return 3
+;;
+
+// a:b:c:d = 1 + length ()
+
+
+// even: even l evaluates to 1 if l is a list of even length and evaluates to 0 if l is not of even length
+// I NEED LENGTH 
+
+
+// reverse: reverse l reverses a list l
+// I NEED LENGTH

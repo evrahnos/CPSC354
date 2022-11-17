@@ -26,8 +26,8 @@ evalCBN (ETl e) = case (evalCBN e) of
     ENil -> ENil
     ECons e2 e3 -> case (evalCBN e3) of
         ENil -> evalCBN e2
-        ECons e4 e5 -> evalCBN (ETl (ECons e4 e5))
-        e4 -> evalCBN e4
+        e4 -> evalCBN e3
+    e2 -> evalCBN e2
 evalCBN (ELE e1 e2) = case (evalCBN e1) of
     (EInt n) -> case (evalCBN e2) of
         (EInt m) -> if n>m then EInt 0 else EInt 1
