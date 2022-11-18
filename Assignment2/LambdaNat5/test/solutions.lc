@@ -20,28 +20,134 @@ fib 6                   // test case with the 6th element, should return 8
 ;;
 let rec fib = \n. if n=0 then 0 else if n=1 then 1 else fib (n-1) + fib (n-2)
 in
-fib 0                   // test case with the 0th element, should return 0
+fib 0                   // further test case with the 0th element, should return 0 (if)
 ;;
 let rec fib = \n. if n=0 then 0 else if n=1 then 1 else fib (n-1) + fib (n-2)
 in
-fib 1                   // test case with the 1st element, should return 1
+fib 1                   // further test case with the 1st element, should return 1 (else if)
 ;;
 
-tl one:two:three:#
-;;
 
 // length: length l evaluates to the length of a list l
-let rec length = \l. if hd l = # then 0 else if hd l = tl l then 1 else 1 + (length (tl l))
+let rec length = \l. if hd l = # then 0 else if hd l = tl l then 1 else 1 + length (tl l)
 in
-length a:b:c:d:#          // test case with list a:b:c:#, should return 3
+length a:b:c:#          // test case with list a:b:c:#, should return 3
 ;;
-
-// a:b:c:d = 1 + length ()
+let rec length = \l. if hd l = # then 0 else if hd l = tl l then 1 else 1 + length (tl l)
+in
+length #          // further test case with empty list #, should return 0 (if)
+;;
+let rec length = \l. if hd l = # then 0 else if hd l = tl l then 1 else 1 + length (tl l)
+in
+length a:#          // further test case with list a:#, should return 1 (else if)
+;;
 
 
 // even: even l evaluates to 1 if l is a list of even length and evaluates to 0 if l is not of even length
-// I NEED LENGTH 
+let rec length = \l. if hd l = # then 0 else if hd l = tl l then 1 else 1 + length (tl l)
+in
+let rec even = \l. if length l = 0 then 1 else if length l = 1 then 0 else if length l = 2 then 1 else even (tl (tl l))
+in
+even a1:a2:a3:a4:#  // test case with list a1:a2:a3:a4:#, should return 1
+;;
 
+let rec length = \l. if hd l = # then 0 else if hd l = tl l then 1 else 1 + length (tl l)
+in
+let rec even = \l. if length l = 0 then 1 else if length l = 1 then 0 else if length l = 2 then 1 else even (tl (tl l))
+in
+even a1:a2:a3:a4:a5:#  // test case with list a1:a2:a3:a4:a5:#, should return 0
+;;
+
+let rec length = \l. if hd l = # then 0 else if hd l = tl l then 1 else 1 + length (tl l)
+in
+let rec even = \l. if length l = 0 then 1 else if length l = 1 then 0 else if length l = 2 then 1 else even (tl (tl l))
+in
+even #  // further test case with empty list #, should return 1 (if)
+;;
+
+let rec length = \l. if hd l = # then 0 else if hd l = tl l then 1 else 1 + length (tl l)
+in
+let rec even = \l. if length l = 0 then 1 else if length l = 1 then 0 else if length l = 2 then 1 else even (tl (tl l))
+in
+even a1:#  // further test case with list a1:#, should return 0 (else if 1)
+;;
+
+let rec length = \l. if hd l = # then 0 else if hd l = tl l then 1 else 1 + length (tl l)
+in
+let rec even = \l. if length l = 0 then 1 else if length l = 1 then 0 else if length l = 2 then 1 else even (tl (tl l))
+in
+even a1:a2:#  // test case with list a1:a2:#, should return 1 (else if 2)
+;;
 
 // reverse: reverse l reverses a list l
-// I NEED LENGTH
+let rec helper1 = \l. if hd l = # then # else if hd l = tl l then # else (hd l) : (helper1 (tl l)) // gets the same list but with the last element removed
+in
+let rec helper2 = \l. if hd l = # then # else if hd l = tl l then hd l else helper2 (tl l) // gets the very last element
+in
+let rec reverse = \l. if hd l = # then # else if hd l = tl l then hd l : # else (helper2 l) : (reverse (helper1 l)) // helper2 list : reverse (helper1 list) : #
+in
+reverse a:b:c:#     // test case with list a:b:c:#, should return c:b:a:#
+;;
+
+let rec helper1 = \l. if hd l = # then # else if hd l = tl l then # else (hd l) : (helper1 (tl l)) // gets the same list but with the last element removed
+in
+let rec helper2 = \l. if hd l = # then # else if hd l = tl l then hd l else helper2 (tl l) // gets the very last element
+in
+let rec reverse = \l. if hd l = # then # else if hd l = tl l then hd l : # else (helper2 l) : (reverse (helper1 l)) // helper2 list : reverse (helper1 list) : #
+in
+reverse #     // further test case with empty list #, should return # (if)
+;;
+
+let rec helper1 = \l. if hd l = # then # else if hd l = tl l then # else (hd l) : (helper1 (tl l)) // gets the same list but with the last element removed
+in
+let rec helper2 = \l. if hd l = # then # else if hd l = tl l then hd l else helper2 (tl l) // gets the very last element
+in
+let rec reverse = \l. if hd l = # then # else if hd l = tl l then hd l : # else (helper2 l) : (reverse (helper1 l)) // helper2 list : reverse (helper1 list) : #
+in
+reverse a:#     // further test case with list a:#, should return a# (else if)
+;;
+
+// weave: weave ns ms weaves together to lists of integers, respecting their order
+let rec weave = \ns. \ms. if hd ns = # then (if hd ms = # then # else (hd ms) : (weave # (if hd ms = tl ms then # else tl ms))) else if hd ms = # then (hd ns) : (weave (if hd ns = tl ns then # else tl ns) #) else 
+    if (hd ns) less_equal (hd ms) = 1 then (hd ns) : (weave (if hd ns = tl ns then # else tl ns) ms) else (hd ms) : (weave ns (if hd ms = tl ms then # else tl ms))
+in
+weave (0:1:4:#) (2:3:5:#)       // test case with lists (0:1:4:#) and (2:3:5:#), should return 0:1:2:3:4:5:#
+;;
+
+let rec weave = \ns. \ms. if hd ns = # then (if hd ms = # then # else (hd ms) : (weave # (if hd ms = tl ms then # else tl ms))) else if hd ms = # then (hd ns) : (weave (if hd ns = tl ns then # else tl ns) #) else 
+    if (hd ns) less_equal (hd ms) = 1 then (hd ns) : (weave (if hd ns = tl ns then # else tl ns) ms) else (hd ms) : (weave ns (if hd ms = tl ms then # else tl ms))
+in
+weave # #       // further test case with lists # and #, should return #
+;;
+
+let rec weave = \ns. \ms. if hd ns = # then (if hd ms = # then # else (hd ms) : (weave # (if hd ms = tl ms then # else tl ms))) else if hd ms = # then (hd ns) : (weave (if hd ns = tl ns then # else tl ns) #) else 
+    if (hd ns) less_equal (hd ms) = 1 then (hd ns) : (weave (if hd ns = tl ns then # else tl ns) ms) else (hd ms) : (weave ns (if hd ms = tl ms then # else tl ms))
+in
+weave 1:# #       // further test case with lists 1:# and #, should return 1:#
+;;
+
+let rec weave = \ns. \ms. if hd ns = # then (if hd ms = # then # else (hd ms) : (weave # (if hd ms = tl ms then # else tl ms))) else if hd ms = # then (hd ns) : (weave (if hd ns = tl ns then # else tl ns) #) else 
+    if (hd ns) less_equal (hd ms) = 1 then (hd ns) : (weave (if hd ns = tl ns then # else tl ns) ms) else (hd ms) : (weave ns (if hd ms = tl ms then # else tl ms))
+in
+weave 1:2:# #       // further test case with lists 1:2:# and #, should return 1:2:#
+;;
+
+let rec weave = \ns. \ms. if hd ns = # then (if hd ms = # then # else (hd ms) : (weave # (if hd ms = tl ms then # else tl ms))) else if hd ms = # then (hd ns) : (weave (if hd ns = tl ns then # else tl ns) #) else 
+    if (hd ns) less_equal (hd ms) = 1 then (hd ns) : (weave (if hd ns = tl ns then # else tl ns) ms) else (hd ms) : (weave ns (if hd ms = tl ms then # else tl ms))
+in
+weave # 1:#       // further test case with lists # and 1:#, should return 1:#
+;;
+
+let rec weave = \ns. \ms. if hd ns = # then (if hd ms = # then # else (hd ms) : (weave # (if hd ms = tl ms then # else tl ms))) else if hd ms = # then (hd ns) : (weave (if hd ns = tl ns then # else tl ns) #) else 
+    if (hd ns) less_equal (hd ms) = 1 then (hd ns) : (weave (if hd ns = tl ns then # else tl ns) ms) else (hd ms) : (weave ns (if hd ms = tl ms then # else tl ms))
+in
+weave # 1:2:#       // further test case with lists # and 1:2:#, should return 1:2:#
+;;
+
+let rec weave = \ns. \ms. if hd ns = # then (if hd ms = # then # else (hd ms) : (weave # (if hd ms = tl ms then # else tl ms))) else if hd ms = # then (hd ns) : (weave (if hd ns = tl ns then # else tl ns) #) else 
+    if (hd ns) less_equal (hd ms) = 1 then (hd ns) : (weave (if hd ns = tl ns then # else tl ns) ms) else (hd ms) : (weave ns (if hd ms = tl ms then # else tl ms))
+in
+weave 1:2:3:# 1:3:4:#       // further test case with lists 1:# and 1:#, should return 1:1:2:3:3:4:#
+;;
+
+
