@@ -339,120 +339,131 @@ From this execution, the moves for a 5-ring Tower of Hanoi game can be seen as f
 \newpage
 
 \subsection{Week 4}
-The following compares concrete and abstract syntax trees of various mathematical expressions.
+The following compares concrete and abstract syntax trees of various mathematical expressions. 
 
-The expression $2+1$:\newline
+Shown below is the context-free grammar used for the concrete syntax trees.
+
+\begin{lstlisting}
+    Exp -> Exp '+' Exp1                                
+    Exp1 -> Exp1 '*' Exp2                              
+    Exp2 -> Integer                                         
+    Exp2 -> '(' Exp ')'    
+    Exp -> Exp1                                        
+    Exp1 -> Exp2  
+\end{lstlisting}
+
+The expression $2+1$:
 
 \hfil
 \begin{tikzpicture}
 \begin{scope}
-\Tree[.Exp [.Exp [.Exp1 [.Exp2 $3$ ]]]
+\Tree[.Exp [.Exp [.Exp1 [.Exp2 [.Integer $2$ ]]]]
            [.+ ]
-           [.Exp1 [.Exp2 $1$ ]]]
+           [.Exp1 [.Exp2 [.Integer $1$ ]]]]
 \end{scope}
 \begin{scope}[xshift=5cm]
-\Tree[.Plus [.2 ]
-            [.1 ]]
+\Tree[.Plus [.Num $2$ ]
+            [.Num $1$ ]]
 \end{scope}
 \end{tikzpicture}
 \hfil
 
-The expression $1+2*3$:\newline
+The expression $1+2*3$:
 
 \hfil
 \begin{tikzpicture}
 \begin{scope}
-\Tree[.Exp [.Exp [.Exp1 [.Exp2 $1$ ]]]
+\Tree[.Exp [.Exp [.Exp1 [.Exp2 [.Integer $1$ ]]]]
            [.+ ]
-           [.Exp1 [.Exp1 [.Exp2 $2$ ]]
+           [.Exp1 [.Exp1 [.Exp2 [.Integer $2$ ]]]
                   [.* ]
-                  [.Exp2 $3$ ]]]
+                  [.Exp2 [.Integer $3$ ]]]]
 \end{scope}
 
 \begin{scope}[xshift=5cm]
-\Tree[.Plus [.1 ]
-            [.Times [.2 ]
-                    [.3 ]]]
+\Tree[.Plus [.Num $1$ ]
+            [.Times [.Num $2$ ]
+                    [.Num $3$ ]]]
 \end{scope}
 \end{tikzpicture}
 \hfil
 
 \newpage
-The expression $1+(2*3)$:\newline
+The expression $1+(2*3)$:
 
 \hfil
 \begin{tikzpicture}
 \begin{scope}
-\Tree[.Exp [.Exp [.Exp1 [.Exp2 $1$ ]]]
+\Tree[.Exp [.Exp [.Exp1 [.Exp2 [.Integer $1$ ]]]]
            [.+ ]
            [.Exp1 [.Exp2 [.( ]
-                         [.Exp [.Exp1 [.Exp1 [.Exp2 $1$ ]]
+                         [.Exp [.Exp1 [.Exp1 [.Exp2 [.Integer $1$ ]]]
                                       [.* ]
-                                      [.Exp2 $3$ ]]]
+                                      [.Exp2 [.Integer $3$ ]]]]
                          [.) ]]]]
                          
 \end{scope}
 
 \begin{scope}[xshift=5cm]
-\Tree[.Plus [.1 ]
-            [.Times [.2 ]
-                    [.3 ]]]
+\Tree[.Plus [.Num $1$ ]
+            [.Times [.Num $2$ ]
+                    [.Num $3$ ]]]
 \end{scope}
 \end{tikzpicture}
 \hfil    
 
-The expression $(1+2)*3$:\newline
+The expression $(1+2)*3$:
 
 \hfil
 \begin{tikzpicture}
 \begin{scope}
 \Tree[.Exp [.Exp1 [.Exp1 [.Exp2 [.( ]
-                                [.Exp [.Exp [.Exp1 [.Exp2 $1$ ]]]
+                                [.Exp [.Exp [.Exp1 [.Exp2 [.Integer $1$ ]]]]
                                       [.+ ]
-                                      [.Exp1 [.Exp2 $2$ ]]]
+                                      [.Exp1 [.Exp2 [.Integer $2$ ]]]]
                                 [.) ]]]
            [.* ]
-           [.Exp2 $3$ ]]]
+           [.Exp2 [.Integer $3$ ]]]]
                          
 \end{scope}
 
 \begin{scope}[xshift=5cm]
-\Tree[.Times [.Plus [.1 ]
-                    [.2 ]]
-             [.3 ]]
+\Tree[.Times [.Plus [.Num $1$ ]
+                    [.Num $2$ ]]
+             [.Num $3$ ]]
 \end{scope}
 \end{tikzpicture}
 \hfil
 
 \newpage
-The expression $1+2*3+4*5+6$:\newline
+The expression $1+2*3+4*5+6$:
 
 \hfil
 \begin{tikzpicture}
 \begin{scope}
-\Tree[.Exp [.Exp [.Exp [.Exp [.Exp1 [.Exp2 $1$ ]]]
+\Tree[.Exp [.Exp [.Exp [.Exp [.Exp1 [.Exp2 [.Integer $1$ ]]]]
                        [.+ ]
-                       [.Exp1 [.Exp1 [.Exp2 $2$ ]]
+                       [.Exp1 [.Exp1 [.Exp2 [.Integer $2$ ]]]
                               [.* ]
-                              [.Exp2 $3$ ]]]
+                              [.Exp2 [.Integer $3$ ]]]]
                  [.+ ]
-                 [.Exp1 [.Exp1 [.Exp2 $4$ ]]
+                 [.Exp1 [.Exp1 [.Exp2 [.Integer $4$ ]]]
                         [.* ]
-                        [.Exp2 $5$ ]]]
+                        [.Exp2 [.Integer $5$ ]]]]
            [.+ ]
-           [.Exp1 [.Exp2 $6$ ]]]
+           [.Exp1 [.Exp2 [.Integer $6$ ]]]]
                 
 
                          
 \end{scope}
 
 \begin{scope}[xshift=8cm]
-\Tree[.Plus [.Plus [.Plus [.1 ]
-                          [.Times [.2 ]
-                                  [.3 ]]]
-                   [.Times [.4 ]
-                           [.5 ]]]
-            [.6 ]]
+\Tree[.Plus [.Plus [.Plus [.Num $1$ ]
+                          [.Times [.Num $2$ ]
+                                  [.Num $3$ ]]]
+                   [.Times [.Num $4$ ]
+                           [.Num $5$ ]]]
+            [.Num $6$ ]]
 
                    
 \end{scope}
@@ -464,11 +475,14 @@ The abstract syntax tree of $1+2+3$ would match the tree of $(1+2)+3$. This is b
 
 \hfil
 \begin{tikzpicture}
-\Tree[.Plus(Exp) [.Plus(Exp) [.1(Exp) ]
-                             [.2(Exp1) ]]
-                 [.3(Exp1) ]]
+\Tree[.Plus(Exp) [.Plus(Exp) [.Num1(Exp) ]
+                             [.Num2(Exp1) ]]
+                 [.Num3(Exp1) ]]
 \end{tikzpicture}
 \hfil
+
+\newpage
+
 \subsection{Week 5}
 After generating a working parser demonstrating lambda calculus, linearized abstract syntax trees and 2-dimensional notation abstract syntax trees can be generated for the below expressions.
 \begin{lstlisting}[language=Haskell]
