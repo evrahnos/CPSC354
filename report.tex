@@ -176,11 +176,11 @@ select_evens (x:[]) = [] -- in the case of a list with odd number elements
 select_evens (x:y:xs) = y : select_evens (xs)
 
 -- Execution Sequence with example ["a","b","c","d","e"]
-select_evens ["a","b","c","d","e"] =
-    "b" : (select_evens["c","d","e"]) = -- line 3
-    "b" : ("d" : (select_evens["e"])) = -- line 3
-    "b" : ("d" : ([])) = -- line 2
-    ["b","d"] -- line 1
+select_evens ["a","b","c","d","e"]
+    = "b" : (select_evens["c","d","e"]) -- line 3
+    = "b" : ("d" : (select_evens["e"])) -- line 3
+    = "b" : ("d" : ([])) -- line 2
+    = ["b","d"] -- line 1
 \end{lstlisting} 
 
 % select_odds function
@@ -192,11 +192,11 @@ select_odds (x:[]) = [x] -- in the case of a list with odd number elements
 select_odds (x:y:xs) = x : select_odds (xs)
 
 -- Execution Sequence with example ["a","b","c","d","e"]
-select_odds ["a","b","c","d","e"] =
-    "a" : (select_odds["c","d","e"]) = -- line 3
-    "a" : ("c" : (select_odds["e"])) = -- line 3
-    "a" : ("c" : ("e")) = -- line 2
-    ["a","c","e"] -- syntax of lists
+select_odds ["a","b","c","d","e"]
+    = "a" : (select_odds["c","d","e"]) -- line 3
+    = "a" : ("c" : (select_odds["e"])) -- line 3
+    = "a" : ("c" : ("e")) -- line 2
+    = ["a","c","e"] -- syntax of lists
 \end{lstlisting}
 
 % member function
@@ -209,9 +209,9 @@ member a (x:xs)
     | otherwise = member a (xs)
 
 -- Execution Sequence with example 2 [5,2,6]
-member 2 [5,2,6] =
-    member 2 [2,6] = -- lines 2 -> 4
-    True -- lines 2 -> 3
+member 2 [5,2,6]
+    = member 2 [2,6] -- lines 2 -> 4
+    = True -- lines 2 -> 3
 \end{lstlisting}
 
 \newpage
@@ -224,11 +224,11 @@ append [] ys = ys
 append (x:xs) ys = x : append xs ys
 
 -- Execution Sequence with example [1,2] [3,4,5]
-append [1,2] [3,4,5] =
-    1 : (append [2] [3,4,5]) = -- line 2
-    1 : (2 : (append [] [3,4,5])) = -- line 2
-    1 : (2 : ([3,4,5])) = -- line 1
-    [1,2,3,4,5] -- syntax of lists
+append [1,2] [3,4,5]
+    = 1 : (append [2] [3,4,5]) -- line 2
+    = 1 : (2 : (append [] [3,4,5])) -- line 2
+    = 1 : (2 : ([3,4,5])) -- line 1
+    = [1,2,3,4,5] -- syntax of lists
 \end{lstlisting}
 
 % revert function
@@ -239,19 +239,19 @@ revert [] = []
 revert (x:xs) = append (revert(xs)) [x]
 
 -- Execution Sequence with example [1,2,3]
-revert [1,2,3] =
-    append (revert [2,3]) [1] = -- line 2
-    append (append (revert [3]) [2]) [1] = -- line 2
-    append (append (append (revert []) [3]) [2]) [1] = -- line 2
-    append (append (append [] [3]) [2]) [1] = -- line 1
-    append (append [3] [2]) [1] = -- append line 1
-    append (3 : (append [] [2])) [1] = -- append line 2
-    append (3 : [2]) [1] = -- append line 1
-    append [3,2] [1] = -- syntax of lists
-    3 : (append [2] [1]) = -- append line 2
-    3 : (2 : (append [] [1])) = -- append line 2
-    3 : (2 : [1]) = -- append line 1
-    [3,2,1] -- syntax of lists
+revert [1,2,3]
+    = append (revert [2,3]) [1] -- line 2
+    = append (append (revert [3]) [2]) [1] -- line 2
+    = append (append (append (revert []) [3]) [2]) [1] -- line 2
+    = append (append (append [] [3]) [2]) [1] -- line 1
+    = append (append [3] [2]) [1] -- append line 1
+    = append (3 : (append [] [2])) [1] -- append line 2
+    = append (3 : [2]) [1] -- append line 1
+    = append [3,2] [1] -- syntax of lists
+    = 3 : (append [2] [1]) -- append line 2
+    = 3 : (2 : (append [] [1])) -- append line 2
+    = 3 : (2 : [1]) -- append line 1
+    = [3,2,1] -- syntax of lists
 \end{lstlisting}
 
 % less_equal function
@@ -264,10 +264,10 @@ less_equal (x:xs) (y:ys)
     | otherwise = less_equal (xs) (ys)
 
 -- Execution Sequence with example [1,2,3] [2,3,2]
-less_equal [1,2,3] [2,3,2] =
-    less_equal [2,3] [3,2] = -- lines 2 -> 4
-    less_equal [3] [2] = -- lines 2 -> 4
-    False -- lines 2 -> 3
+less_equal [1,2,3] [2,3,2]
+    = less_equal [2,3] [3,2] -- lines 2 -> 4
+    = less_equal [3] [2] -- lines 2 -> 4
+    = False -- lines 2 -> 3
 \end{lstlisting}
 
 \newpage
@@ -604,69 +604,70 @@ Prog (EApp (EApp (EApp (EAbs (Id "x") (EAbs (Id "y") (EApp (EApp (EVar (Id "x"))
 
 \noindent The following will show the reduction of several lambda calculus expressions, with the last reduction using the \texttt{evalCBN} method from provided interpreter code.
 \begin{lstlisting}[language=Haskell]
-(\x.x) a =
-    a
+(\x.x) a
+    = a
 \end{lstlisting}
 \begin{lstlisting}[language=Haskell]
-\x.x a =
-    \x.x a
+\x.x a
+    = \x.x a
 \end{lstlisting}
 \begin{lstlisting}[language=Haskell]
-(\x.\y.x) a b =
-    (\y.a) b =
-    a
+(\x.\y.x) a b
+    = (\y.a) b
+    = a
 \end{lstlisting}
 \begin{lstlisting}[language=Haskell]
-(\x.\y.y) a b =
-    (\y.y) b =
-    b
+(\x.\y.y) a b
+    = (\y.y) b
+    = b
 \end{lstlisting}
 \newpage
 \begin{lstlisting}[language=Haskell]
-(\x.\y.x) a b c =
-    (\y.a) b c =
-    a c
+(\x.\y.x) a b c
+    = (\y.a) b c
+    = a c
 \end{lstlisting}
 \begin{lstlisting}[language=Haskell]
-(\x.\y.y) a b c =
-    (\y.a) b c =
-    b c
+(\x.\y.y) a b c
+    = (\y.a) b c
+    = b c
 \end{lstlisting}
 \begin{lstlisting}[language=Haskell]
-(\x.\y.x) a (b c) =
-    (\y.a) (b c) =
-    a
+(\x.\y.x) a (b c)
+    = (\y.a) (b c)
+    = a
 \end{lstlisting}
 \begin{lstlisting}[language=Haskell]
-(\x.\y.y) a (b c) =
-    (\y.y) (b c) =
-    b c
+(\x.\y.y) a (b c)
+    = (\y.y) (b c)
+    = b c
 \end{lstlisting}
 \begin{lstlisting}[language=Haskell]
-(\x.\y.x) (a b) c =
-    (\y.(a b)) c =
-    a b
+(\x.\y.x) (a b) c
+    = (\y.(a b)) c
+    = a b
 \end{lstlisting}
 \begin{lstlisting}[language=Haskell]
-(\x.\y.y) (a b) c =
-    (\y.y) c =
-    c
+(\x.\y.y) (a b) c
+    = (\y.y) c
+    = c
 \end{lstlisting}
 \begin{lstlisting}[language=Haskell]
-(\x.\y.x) (a b c) =
-    \y.(a b c)
+(\x.\y.x) (a b c)
+    = \y.(a b c)
 \end{lstlisting}
 \begin{lstlisting}[language=Haskell]
-(\x.\y.y) (a b c) =
-    \y.y
+(\x.\y.y) (a b c)
+    = \y.y
 \end{lstlisting}
 \begin{lstlisting}[language=Haskell]
-evalCBN (\x.x)((\y.y)a) =
-    evalCBN (EApp (EAbs (Id "x") (EVar (Id "x"))) (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a")))) = -- converted to concrete format
-    evalCBN (subst (Id "x") (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a"))) (EVar (Id "x"))) = -- provided interpreter line 27
-    evalCBN (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a"))) = -- reduction of subst in one step
-    evalCBN (subst (Id "y") (EVar (Id "a")) (EVar (Id "y"))) = -- provided interpreter line 27
-    EVar (Id "a") -- reduction of subst in one step
+evalCBN (\x.x)((\y.y)a)
+    = evalCBN (EApp (EAbs (Id "x") (EVar (Id "x"))) (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a")))) -- converted to concrete format
+    = evalCBN (subst (Id "x") (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a"))) (EVar (Id "x"))) -- provided interpreter line 27
+    = evalCBN (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a"))) = -- reduction of subst in one step
+    = evalCBN (subst (Id "y") (EVar (Id "a")) (EVar (Id "y"))) -- provided interpreter line 27
+    = evalCBN (EVar (Id "a")) -- reduction of subst in one step
+    = a -- line 32
 \end{lstlisting}
 \newpage
 
@@ -692,159 +693,153 @@ The following is an evaluation of a longer lambda calculus expression.
     = (\x. (\x2. (x (x (x (x (x (x ((\x2. x (x (x x2))) x2)))))))))
     = \x. \x2. x (x (x (x (x (x (x (x (x x2))))))))
 \end{lstlisting}
+
+\newpage
+
 \subsection{Week 7}
 This section will investigate bound and free variables in a lambda-calculus interpreter.
 
 \noindent The following is a section of the interpreter code.
 \begin{lstlisting}[language=Haskell]
 evalCBN (EApp e1 e2) = case (evalCBN e1) of -- line 5
-(EAbs i e3) -> evalCBN (subst i e2 e3)           -- line 6
-e3 -> EApp e3 e2                                 -- line 7
+    (EAbs i e3) -> evalCBN (subst i e2 e3)       -- line 6
+    e3 -> EApp e3 e2                             -- line 7
+evalCBN x = x                                    -- line 8
 \end{lstlisting}
 
-\noindent In this code, all variables (\texttt{e1}, \texttt{e2}, \texttt{e3}, and \texttt{i}) are \textbf{bound variables}. This is because the variable names can be changed without changing the function \texttt{evalCBN}.\newline
+\noindent In this code, all variables (\texttt{e1}, \texttt{e2}, \texttt{e3}, \texttt{i}, and \texttt{x}) are \textbf{bound variables}. This is because the variable names can be changed without changing the function \texttt{evalCBN}.
 
-\noindent \texttt{e1}:
-
-Binder: \texttt{EApp e1 e2}
-
+\noindent \texttt{e1}:\\
+Binder: \texttt{evalCBN (EApp e1 e2)}\\
 Scope: \texttt{case (evalCBN e1) of
 | (EAbs i e3) -> evalCBN (subst i e2 e3)
 | e3 -> EApp e3 e2}
 
-\noindent \texttt{e2}:
-
-Binder: \texttt{EApp e1 e2}
-
+\noindent \texttt{e2}:\\
+Binder: \texttt{evalCBN (EApp e1 e2)}\\
 Scope: \texttt{case (evalCBN e1) of
 | (EAbs i e3) -> evalCBN (subst i e2 e3)
 | e3 -> EApp e3 e2}
 
-\noindent \texttt{e3}:
-
-Binder (line 6): \texttt{EAbs i e3}
-
-Scope (line 6): \texttt{subst i e2 e3}
-
-Binder (line 7): \texttt{e3}
-
+\noindent \texttt{e3}:\\
+Binder (line 6): \texttt{EAbs i e3}\\
+Scope (line 6): \texttt{evalCBN (subst i e2 e3)}\\
+Binder (line 7): \texttt{e3}\\
 Scope (line 7): \texttt{EApp e3 e2}
 
-\noindent \texttt{i}:
+\noindent \texttt{i}:\\
+Binder: \texttt{EAbs i e3}\\
+Scope: \texttt{evalCBN (subst i e2 e3)}
 
-Binder: \texttt{EAbs i e3}
-
-Scope: \texttt{subst i e2 e3}
+\noindent \texttt{x}:\\
+Binder: \texttt{evalCBN x}\\
+Scope: \texttt{x}
 
 \newpage
 
 The following is another section of the interpreter code.
 \begin{lstlisting}[language=Haskell]
-    subst id s (EAbs id1 e1) =           -- line 18
-    let f = fresh (EAbs id1 e1)          -- line 20
-        e2 = subst id1 (EVar f) e1 in   -- line 21
-        EAbs f (subst id s e2)           -- line 22
+subst id s (EAbs id1 e1) =           -- line 18
+let f = fresh (EAbs id1 e1)          -- line 20
+    e2 = subst id1 (EVar f) e1 in   -- line 21
+    EAbs f (subst id s e2)           -- line 22
 \end{lstlisting}
 
-\noindent In this code, all variables (\texttt{id}, \texttt{s}, \texttt{id1}, \texttt{e1}, \texttt{f}, and \texttt{e2}) are \textbf{bound variables}. This is because the variable names can be changed without changing the function \texttt{subst}.\newline
+\noindent In this code, all variables (\texttt{id}, \texttt{s}, \texttt{id1}, \texttt{e1}, \texttt{f}, and \texttt{e2}) are \textbf{bound variables}. This is because the variable names can be changed without changing the function \texttt{subst}.
 
-\noindent \texttt{id}:
+\noindent \texttt{id}:\\
+Binder: \texttt{subst id s (EAbs id1 e1)}\\
+Scope: \texttt{let f = fresh (EAbs id1 e1) | e2 = subst id1 (EVar f) e1 in | EAbs f (subst id s e2)}
 
-Binder: \texttt{subst id s (EAbs id1 e1)}
+\noindent \texttt{s}:\\
+Binder: \texttt{subst id s (EAbs id1 e1)}\\
+Scope: \texttt{let f = fresh (EAbs id1 e1) | e2 = subst id1 (EVar f) e1 in | EAbs f (subst id s e2)}
 
-Scope: \texttt{let f = fresh (EAbs id1 e1)
-| e2 = subst id1 (EVar f) e1 in
-| EAbs f (subst id s e2)}\\
+\noindent \texttt{id1}:\\
+Binder: \texttt{subst id s (EAbs id1 e1)}\\
+Scope: \texttt{let f = fresh (EAbs id1 e1) | e2 = subst id1 (EVar f) e1 in | EAbs f (subst id s e2)}
 
-\noindent \texttt{s}:
+\noindent \texttt{e1}:\\
+Binder: \texttt{subst id s (EAbs id1 e1)}\\
+Scope: \texttt{let f = fresh (EAbs id1 e1) | e2 = subst id1 (EVar f) e1 in | EAbs f (subst id s e2)}
 
-Binder: \texttt{subst id s (EAbs id1 e1)}
+\noindent \texttt{f}:\\
+Binder: \texttt{let f}\\
+Scope: \texttt{fresh (EAbs id1 e1) | e2 = subst id1 (EVar f) e1 in | EAbs f (subst id s e2)}
 
-Scope: \texttt{let f = fresh (EAbs id1 e1)
-| e2 = subst id1 (EVar f) e1 in
-| EAbs f (subst id s e2)}\\
+\noindent \texttt{e2}:\\
+Binder: \texttt{e2}\\
+Scope: \texttt{subst id1 (EVar f) e1 in | EAbs f (subst id s e2)}
 
-\noindent \texttt{id1}:
+\noindent\rule{\textwidth}{1pt}
 
-Binder: \texttt{EAbs id1 e1}
-
-Scope: \texttt{let f = fresh (EAbs id1 e1)
-| e2 = subst id1 (EVar f) e1 in
-| EAbs f (subst id s e2)}\\
-
-\noindent \texttt{e1}:
-
-Binder: \texttt{EAbs id1 e1}
-
-Scope: \texttt{let f = fresh (EAbs id1 e1)
-| e2 = subst id1 (EVar f) e1 in
-| EAbs f (subst id s e2)}\\
-
-\noindent \texttt{f}:
-
-Binder: \texttt{f = fresh (EAbs id1 e1)}
-
-Scope: \texttt{| e2 = subst id1 (EVar f) e1 in
-| EAbs f (subst id s e2)}
-
-\noindent \texttt{e2}:
-
-Binder: \texttt{e2 = subst id1 (EVar f) e1}
-
-Scope: \texttt{EAbs f (subst id s e2)}\\
-
-\noindent Another example of evalCBN is demonstrated here:
+\noindent Another example of \texttt{evalCBN} from a provided interpreter snippet is demonstrated here, now including the above snippet for \texttt{fresh}:
 
 \begin{lstlisting}[language=Haskell]
 evalCBN (\x.\y.x) y z =
-    evalCBN (EApp (EApp (EAbs (Id "x") (EAbs (Id "y") (EVar (Id "x")))) (EVar (Id "y"))) (EVar (Id "z"))) = -- converted to concrete format
-    evalCBN (EApp (EApp (EAbs (Id "x") (EAbs (Id "y0") (EVar (Id "x")))) (EVar (Id "y"))) (EVar (Id "z"))) = -- fresh applied in one step
-    evalCBN (EApp (EApp (evalCBN (subst (Id "y0") (EVar (Id "y")) (EVar (Id "x")))) (EVar (Id "y"))) (EVar (Id "z"))) = -- line 6
-    evalCBN (EApp (EAbs (Id "y0") (EVar (Id "y"))) (EVar (Id "z"))) = -- subst reduction
-    evalCBN (EApp (evalCBN (subst (Id "y0") (EVar (Id "z")) (EVar (Id "y")))) (EVar (Id "z"))) = -- line 6
-    evalCBN (EVar (Id "y")) = -- subst reduction
-    EVar (Id "y") -- evalCBN x = x
+    = evalCBN (EApp (EApp (EAbs (Id "x") (EAbs (Id "y") (EVar (Id "x")))) (EVar (Id "y"))) (EVar (Id "z"))) -- converted to concrete format
+    = evalCBN (EApp (evalCBN (EApp (EAbs (Id "x") (EAbs (Id "y") (EVar (Id "x")))) (EVar (Id "y")))) (EVar (Id "z"))) -- line 5
+    = evalCBN (EApp (evalCBN (subst (Id "x") (EVar (Id "y")) (EAbs (Id "y") (EVar (Id "x"))))) (EVar (Id "z"))) -- line 6
+    = evalCBN (EApp (evalCBN (EAbs (Id "y0") (subst (Id "x") (EVar (Id "y")) (subst (Id "y") (EVar (Id "y0")) (EVar (Id "x")))))) (EVar (Id "z"))) -- line 22
+    = evalCBN (EApp (evalCBN (EAbs (Id "y0") (subst (Id "x") (EVar (Id "y")) (EVar (Id "x"))))) (EVar (Id "z"))) -- line 16
+    = evalCBN (EApp (evalCBN (EAbs (Id "y0") (EVar (Id "y")))) (EVar (Id "z"))) -- line 15
+    = evalCBN (EApp (EAbs (Id "y0") (EVar (Id "y"))) (EVar (Id "z"))) -- line 8
+    = evalCBN (subst (Id "y0") (EVar (Id "z")) (EVar (Id "y"))) -- line 6
+    = evalCBN (EVar (Id "y")) -- line 16
+    = y -- line 8
 \end{lstlisting}
+
+\newpage 
 
 The following is an analysis of several abstract reduction systems.
 
-\noindent \texttt{A=\{\}}
+\noindent \texttt{A=\{\}}\\
+A picture will not be drawn for this, for it is just an empty set. This ARS is terminating because an empty set cannot reduce any further. It is confluent because there is no divergence of elements. It has unique normal forms (which is the empty set).
 
-A picture will not be drawn for this, for it is just an empty set. This ARS is terminating because it cannot reduce any further. It is confluent because every peak converges to the same result. It has a unique normal form (which is the empty set).\\
+\noindent\rule{\textwidth}{1pt}
 
-\noindent \texttt{A=\{a\} and R=\{\}}
+\noindent \texttt{A=\{a\} and R=\{\}}\\
+A picture will not be drawn for this, for it is just \texttt{a}. This ARS is terminating because \texttt{a} cannot reduce any further. It is confluent because there is no divergence of elements. It has unique normal forms (which is \texttt{a}).
 
-A picture will not be drawn for this, for it is just the letter "a". This ARS is terminating because it cannot reduce any further. It is confluent because every peak converges to the same result. It has a unique normal form (which is "a").\\
+\noindent\rule{\textwidth}{1pt}
 
-\noindent \texttt{A=\{a\} and R=\{(a,a)\}}\\
+\noindent \texttt{A=\{a\} and R=\{(a,a)\}}
 \begin{center}
-    \includegraphics{ars3.png}
+    \includegraphics[scale=0.5]{ars3.png}
 \end{center}
-This ARS is not terminating because it can always reduce further. It is confluent because every peak converges to the same result. It has a unique normal form (which is "a").\\
+This ARS is not terminating because \texttt{a} can always reduce to itself. It is confluent because the divergence of \texttt{a} can converge back to itself. It does not have unique normal forms, as \texttt{a} can always reduce to itself.
 
-\noindent \texttt{A=\{a,b,c\} and R=\{(a,b),(a,c)\}}\\
-\begin{center}
-    \includegraphics{ars4.png}
-\end{center}
-This ARS is terminating because it cannot reduce any further. It is not confluent since the computations do not converge back. It does not have a unique normal form.\\
+\noindent\rule{\textwidth}{1pt}
 
-\noindent \texttt{A=\{a,b\} and R=\{(a,a),(a,b)\}}\\
+\noindent \texttt{A=\{a,b,c\} and R=\{(a,b),(a,c)\}}
 \begin{center}
-    \includegraphics{ars5.png}
+    \includegraphics[scale=0.5]{ars4.png}
 \end{center}
-This ARS is not terminating because it can always reduce further. It is not confluent since the computations do not converge back. It does not have a unique normal form.\\
+This ARS is terminating because it cannot reduce any further than \texttt{b} or \texttt{c}. It is not confluent since the divergence to \texttt{b} and \texttt{c} cannot converge back. It does not have unique normal forms, as there are two normal forms of \texttt{a} (\texttt{b} and \texttt{c}).
 
-\noindent \texttt{A=\{a,b,c\} and R=\{(a,b),(b,b),(a,c)\}}\\
-\begin{center}
-    \includegraphics{ars6.png}
-\end{center}
-This ARS is not terminating because it can always reduce further. It is not confluent since the computations do not converge back. It does not have a unique normal form.\\
+\noindent\rule{\textwidth}{1pt}
 
-\noindent \texttt{A=\{a,b,c\} and R=\{(a,b),(b,b),(a,c),(c,c)\}}\\
+\noindent \texttt{A=\{a,b\} and R=\{(a,a),(a,b)\}}
 \begin{center}
-    \includegraphics{ars7.png}
+    \includegraphics[scale=0.5]{ars5.png}
 \end{center}
-This ARS is not terminating because it can always reduce further. It is not confluent since the computations do not converge back. It does not have a unique normal form.
+This ARS is not terminating because \texttt{a} can always reduce further. It is confluent because the divergence to \texttt{a} and \texttt{b} can converge back, with the recursive \texttt{a} converging back to the original \texttt{b}. It has unique normal forms, as \texttt{a} has the unique normal form of \texttt{b}.
+
+\newpage
+
+\noindent \texttt{A=\{a,b,c\} and R=\{(a,b),(b,b),(a,c)\}}
+\begin{center}
+    \includegraphics[scale=0.5]{ars6.png}
+\end{center}
+This ARS is not terminating because \texttt{b} can always reduce further. It is not confluent since the divergence to \texttt{b} and \texttt{c} cannot converge back. It does not have unique normal forms, as there are two normal forms of \texttt{a} (\texttt{b} and \texttt{c}).
+
+\noindent\rule{\textwidth}{1pt}
+
+\noindent \texttt{A=\{a,b,c\} and R=\{(a,b),(b,b),(a,c),(c,c)\}}
+\begin{center}
+    \includegraphics[scale=0.5]{ars7.png}
+\end{center}
+This ARS is not terminating because \texttt{b} and \texttt{c} can always reduce further. It is not confluent since the divergence to \texttt{b} and \texttt{c} cannot converge back. It does not have unique normal forms, as there are two normal forms of \texttt{a} (\texttt{b} and \texttt{c}).
 \newpage
 Lastly, the 8 different cases of confluence, termination, and presence of unique normal forms will be shown.
 
