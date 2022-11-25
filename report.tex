@@ -274,16 +274,13 @@ less_equal [1,2,3] [2,3,2] =
 
 \subsection{Week 3}
 
-The following investigates the Tower of Hanoi problem. Here is a given Haskell implementation describing moves in the game, as well as the execution sequence for the test input \texttt{hanoi 5 0 2}.
+The following investigates the Tower of Hanoi problem in Haskell and the execution of a 5-ring game.
 \begin{lstlisting}[language=Haskell]
--- Implementation
 hanoi 1 x y = move x y
-
 hanoi (n+1) x y = 
     hanoi n x (other x y) 
     move x y 
     hanoi n (other x y) y
-
 -- Execution Sequence
 hanoi 5 0 2
     hanoi 4 0 1
@@ -337,7 +334,10 @@ From this execution, the moves for a 5-ring Tower of Hanoi game can be seen as f
 0->2, 0->1, 2->1, 0->2, 1->0, 1->2, 0->2, 0->1, 2->1, 2->0, 1->0, 2->1, 0->2, 0->1, 2->1, 0->2, 1->0, 1->2, 0->2, 1->0, 2->1, 2->0, 1->0, 1->2, 0->2, 0->1, 2->1, 0->2, 1->0, 1->2, 0->2
 \end{lstlisting}
 
-\noindent \textbf{Analysis:} From this computation, the word \texttt{hanoi} appears exactly 31 times in the execution. Based on executions of the game with a different number of starting rings, the formula $2^n - 1$ can be derived to determine how many times \texttt{hanoi} will appear, with \texttt{n} being the number of disks in the game.
+\noindent From this computation, the word \texttt{hanoi} appears exactly 31 times in the execution. Based on executions of the game with a different number of starting rings, the formula $2^n - 1$ can be derived to determine how many times \texttt{hanoi} will appear, with \texttt{n} being the number of rings in the game. This is also seen to be the optimal amount of moves to solve the Tower of Hanoi problem with \texttt{n} starting rings.
+
+\newpage
+
 \subsection{Week 4}
 The following compares concrete and abstract syntax trees of various mathematical expressions.
 
