@@ -17,6 +17,7 @@
     }
     
 \usepackage{listings}
+\usepackage{parskip}
 \usepackage{qtree}
 \usepackage{tikz-qtree}
 
@@ -71,29 +72,22 @@
 \section{Introduction}\label{intro}
 
 This report is written by Eleas Vrahnos, a third-year undergraduate at Chapman University at the time of this report's completion. It details all assignments and progress made in the Programming Languages course, CPSC 354. It includes weekly homework assigments and a final project that demonstrate understanding and application in various class topics covered that week. Almost all of these exercises are coded in the functional programming language Haskell, which is used to help make creating an example programming language interpreter as simple as possible.
-
+\newpage
 \section{Homework}\label{homework}
 
 This section will contain my solutions to the weekly homework assignments. 
 
 \subsection{Week 1}
 
-The following is a Python implementation of the Euclidean algorithm:
+The following is a Python implementation of the Euclidean algorithm, a method for computing the greatest common divisor between two integers. A sample input \texttt{gcd(9, 33)} is tested step by step below.
 
 \begin{lstlisting}[language=Python]
 def gcd(a,b):
     while a != b:
-        if a > b:
-            a = a-b
-        else:
-            b = b-a
+        if a > b: a = a-b
+        else: b = b-a
     return a
 \end{lstlisting}
-
-\newpage % Temporary page break
-
-\noindent We can test this code by going through the function with a sample input \texttt{gcd(9, 33)}, step by step.
-
 \begin{enumerate}[noitemsep]
   \item \texttt{gcd(9, 33)}
   \begin{itemize}
@@ -168,10 +162,10 @@ def gcd(a,b):
       \item \texttt{a} is returned from the function, giving the correct greatest common divisor of \textbf{3}.
   \end{itemize}
 \end{enumerate}
+
 \subsection{Week 2}
 
-
-The following are implementations of various functions in Haskell. \newline
+The following are implementations of various functions in Haskell and corresponding examples. For the execution sequences, equational reasoning is shown in the comments by line number of the implementation.
 
 % select_evens function
 \noindent \texttt{select\_evens}, lists the even-indexed elements of a given list:
@@ -183,10 +177,10 @@ select_evens (x:y:xs) = y : select_evens (xs)
 
 -- Execution Sequence with example ["a","b","c","d","e"]
 select_evens ["a","b","c","d","e"] =
-    "b" : (select_evens["c","d","e"]) = 
-    "b" : ("d" : (select_evens["e"])) =
-    "b" : ("d" : ([])) = 
-    ["b","d"]
+    "b" : (select_evens["c","d","e"]) = -- line 3
+    "b" : ("d" : (select_evens["e"])) = -- line 3
+    "b" : ("d" : ([])) = -- line 2
+    ["b","d"] -- line 1
 \end{lstlisting} 
 
 % select_odds function
@@ -199,10 +193,10 @@ select_odds (x:y:xs) = x : select_odds (xs)
 
 -- Execution Sequence with example ["a","b","c","d","e"]
 select_odds ["a","b","c","d","e"] =
-    "a" : (select_odds["c","d","e"]) = 
-    "a" : ("c" : (select_odds["e"])) =
-    "a" : ("c" : ("e")) = 
-    ["a","c","e"]
+    "a" : (select_odds["c","d","e"]) = -- line 3
+    "a" : ("c" : (select_odds["e"])) = -- line 3
+    "a" : ("c" : ("e")) = -- line 2
+    ["a","c","e"] -- syntax of lists
 \end{lstlisting}
 
 % member function
@@ -216,11 +210,11 @@ member a (x:xs)
 
 -- Execution Sequence with example 2 [5,2,6]
 member 2 [5,2,6] =
-    member 2 [2,6] = 
-    True
+    member 2 [2,6] = -- lines 2 -> 4
+    True -- lines 2 -> 3
 \end{lstlisting}
 
-\newpage % Temporary page break
+\newpage
 
 % append function
 \noindent \texttt{append}, appends a list to another list:
@@ -231,14 +225,14 @@ append (x:xs) ys = x : append xs ys
 
 -- Execution Sequence with example [1,2] [3,4,5]
 append [1,2] [3,4,5] =
-    1 : (append [2] [3,4,5]) = 
-    1 : (2 : (append [] [3,4,5])) =
-    1 : (2 : ([3,4,5])) =
-    [1,2,3,4,5]
+    1 : (append [2] [3,4,5]) = -- line 2
+    1 : (2 : (append [] [3,4,5])) = -- line 2
+    1 : (2 : ([3,4,5])) = -- line 1
+    [1,2,3,4,5] -- syntax of lists
 \end{lstlisting}
 
 % revert function
-\noindent \texttt{revert}, reverses a list:
+\noindent \texttt{revert}, reverses a list (makes use of \texttt{append}):
 \begin{lstlisting}[language=Haskell]
 -- Implementation
 revert [] = []
@@ -246,18 +240,18 @@ revert (x:xs) = append (revert(xs)) [x]
 
 -- Execution Sequence with example [1,2,3]
 revert [1,2,3] =
-    append (revert [2,3]) [1] =
-    append (append (revert [3]) [2]) [1] =
-    append (append (append (revert []) [3]) [2]) [1] =
-    append (append (append [] [3]) [2]) [1] =
-    append (append [3] [2]) [1] = 
-    append (3 : (append [] [2])) [1] =
-    append (3 : [2]) [1] =
-    append [3,2] [1] =
-    3 : (append [2] [1]) =
-    3 : (2 : (append [] [1]) =
-    3 : (2 : [1]) =
-    [3,2,1]
+    append (revert [2,3]) [1] = -- line 2
+    append (append (revert [3]) [2]) [1] = -- line 2
+    append (append (append (revert []) [3]) [2]) [1] = -- line 2
+    append (append (append [] [3]) [2]) [1] = -- line 1
+    append (append [3] [2]) [1] = -- append line 1
+    append (3 : (append [] [2])) [1] = -- append line 2
+    append (3 : [2]) [1] = -- append line 1
+    append [3,2] [1] = -- syntax of lists
+    3 : (append [2] [1]) = -- append line 2
+    3 : (2 : (append [] [1])) = -- append line 2
+    3 : (2 : [1]) = -- append line 1
+    [3,2,1] -- syntax of lists
 \end{lstlisting}
 
 % less_equal function
@@ -271,12 +265,13 @@ less_equal (x:xs) (y:ys)
 
 -- Execution Sequence with example [1,2,3] [2,3,2]
 less_equal [1,2,3] [2,3,2] =
-    less_equal [2,3] [3,2] = 
-    less_equal [3] [2] = 
-    False
+    less_equal [2,3] [3,2] = -- lines 2 -> 4
+    less_equal [3] [2] = -- lines 2 -> 4
+    False -- lines 2 -> 3
 \end{lstlisting}
 
-\newpage % Temporary page break
+\newpage
+
 \subsection{Week 3}
 
 The following investigates the Tower of Hanoi problem. Here is a given Haskell implementation describing moves in the game, as well as the execution sequence for the test input \texttt{hanoi 5 0 2}.
