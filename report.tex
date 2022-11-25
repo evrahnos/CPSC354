@@ -497,7 +497,6 @@ Prog (EVar (Id "x"))
 \end{tikzpicture}
 \hfil
 
-\newpage
 \begin{lstlisting}[language=Haskell]
 -- x x
 x x
@@ -550,7 +549,7 @@ Prog (EAbs (Id "x") (EVar (Id "x")))
                    [.EVar [.Id [."x" ]]]]]
 \end{tikzpicture}
 \hfil
-
+\newpage
 \begin{lstlisting}[language=Haskell]
 -- \ x.x x
 \ x . x x
@@ -565,7 +564,6 @@ Prog (EAbs (Id "x") (EApp (EVar (Id "x")) (EVar (Id "x"))))
 \end{tikzpicture}
 \hfil
 
-\newpage
 \begin{lstlisting}[language=Haskell]
 -- (\ x . (\ y . x y)) (\ x.x) z
 \ x . \ y . x y (\ x . x)z
@@ -604,7 +602,7 @@ Prog (EApp (EApp (EApp (EAbs (Id "x") (EAbs (Id "y") (EApp (EApp (EVar (Id "x"))
 \end{tikzpicture}
 \hfil
 
-\noindent The following will show the reduction of several lambda calculus expressions.
+\noindent The following will show the reduction of several lambda calculus expressions, with the last reduction using the \texttt{evalCBN} method from provided interpreter code.
 \begin{lstlisting}[language=Haskell]
 (\x.x) a =
     a
@@ -665,12 +663,13 @@ Prog (EApp (EApp (EApp (EAbs (Id "x") (EAbs (Id "y") (EApp (EApp (EVar (Id "x"))
 \begin{lstlisting}[language=Haskell]
 evalCBN (\x.x)((\y.y)a) =
     evalCBN (EApp (EAbs (Id "x") (EVar (Id "x"))) (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a")))) = -- converted to concrete format
-    evalCBN (subst (Id "x") (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a"))) (EVar (Id "x"))) = -- line 27
+    evalCBN (subst (Id "x") (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a"))) (EVar (Id "x"))) = -- provided interpreter line 27
     evalCBN (EApp (EAbs (Id "y") (EVar (Id "y"))) (EVar (Id "a"))) = -- reduction of subst in one step
-    evalCBN (subst (Id "y") (EVar (Id "a")) (EVar (Id "y"))) = -- line 27
+    evalCBN (subst (Id "y") (EVar (Id "a")) (EVar (Id "y"))) = -- provided interpreter line 27
     EVar (Id "a") -- reduction of subst in one step
 \end{lstlisting}
 \newpage
+
 \subsection{Week 6}
 The following is an evaluation of a longer lambda calculus expression.
 
