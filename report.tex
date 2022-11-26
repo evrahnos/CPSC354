@@ -4,6 +4,7 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{array}
 \usepackage{enumitem}
 \usepackage{fullpage}
 \usepackage[usenames]{color}
@@ -843,40 +844,32 @@ This ARS is not terminating because \texttt{b} and \texttt{c} can always reduce 
 \newpage
 Lastly, the 8 different cases of confluence, termination, and presence of unique normal forms will be shown.
 
-True, True, True:
 \begin{center}
-    \includegraphics{ex1.png}
+\begin{tabular}{ | m{5em} | m{5em}| m{12em} | m{3.2cm} | }
+ \hline
+ Confluent & Terminating & Has unique normal forms & Example \\
+ \hline\hline
+ True & True & True & \includegraphics[scale=0.5]{ex1.png} \\ 
+ \hline
+ True & True & False & If an ARS is confluent and terminating then all elements reduce to a unique normal form. \\
+ \hline
+ True & False & True & \includegraphics[scale=0.5]{ex3.png} \\
+ \hline
+ True & False & False & \includegraphics[scale=0.5]{ex4.png} \\
+ \hline
+ False & True & True & An ARS has unique normal forms if (and only if) it is confluent and normalising. \\
+ \hline
+ False & True & False & \includegraphics[scale=0.5]{ex6.png} \\
+ \hline
+ False & False & True & An ARS has unique normal forms if (and only if) it is confluent and normalising. \\
+ \hline
+ False & False & False & \includegraphics[scale=0.5]{ex8.png} \\
+ \hline
+\end{tabular}
 \end{center}
 
-True, True, False: Congruence implies that there are unique normal forms, so there is no example of this case.\\
-
-True, False, True:
-\begin{center}
-    \includegraphics{ex3.png}
-\end{center}
-
-True, False, False: Congruence implies that there are unique normal forms, so there is no example of this case.\\
-
-False, True, True:
-\begin{center}
-    \includegraphics{ex5.png}
-\end{center}
-
-False, True, False:
-\begin{center}
-    \includegraphics{ex6.png}
-\end{center}
-
-False, False, True:
-\begin{center}
-    \includegraphics{ex7.png}
-\end{center}
-
-False, False, False:
-\begin{center}
-    \includegraphics{ex8.png}
-\end{center}
 \newpage
+
 \subsection{Week 8}
 The following will investigate properties of the following rewrite system:
 \begin{lstlisting}
