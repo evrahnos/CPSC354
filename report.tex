@@ -953,6 +953,61 @@ Some excerpts and my thoughts regarding contracts in the field of financial engi
 
 \textbf{A:} I was thinking about the non-contract-related opportunities of this financial language. Even if learning the language perfectly had no beneficial effect to using these contracts, it can be beneficial outside of creating contracts. Programming is widely known as an essential skill in many fields, and it can still prove to be useful at least somewhere else, since financial engineering combines two big seemingly-unrelated fields.
 
+\newpage
+
+\subsection{Week 12}
+
+The following is an analysis of the following code through the lens of Hoare logic:
+
+\texttt{while (x!=0) do z:=z*y;  x:= x-1 done}
+
+Looking at the short program, the program will terminate only if $x > 0$ before the while loop begins. The program will also calculate $z = y^x$ if $z = 1$ before the while loop.
+
+To find the invariant for this while loop, a table of execution can be made. The example initialization will be $x = 10$, $y = 2$, and $z = 1$. \texttt{t} will be used to count the number of iterations so far in the while loop.
+
+\begin{center}
+\begin{tabular}{ | c | c | c | c| }
+    \hline
+    \texttt{t} & \texttt{x} & \texttt{y} & \texttt{z} \\
+    \hline\hline
+    0 & 10 & 2 & 1 \\ 
+    \hline
+    1 & 9 & 2 & 2 \\
+    \hline
+    2 & 8 & 2 & 4 \\
+    \hline
+    ... & ... & ... & ... \\
+    \hline
+    9 & 1 & 2 & 512 \\
+    \hline
+    10 & 0 & 2 & 1024 \\
+    \hline
+\end{tabular}
+\end{center}
+
+These numbers satisfy the following invariants:
+
+\begin{itemize}
+    \item $t + x = 10$
+    \item $z = y ^ t$
+\end{itemize}
+
+Using algebra, these two equations can be modified to get an invariant consisting of only \texttt{x}, \texttt{y}, and \texttt{z}: $z = y^{(10 - x)}$.
+
+This can be formalized through a Hoare triple:
+
+\texttt{\{$z = y^{(n - x)}$\}  while (x != 0) do z:=z*y;  x:= x-1 done  \{$z = y^{(n - x)}$\}}
+
+This can be proved from the intended purpose of this for loop with the following starting Hoare triple:
+
+\texttt{\{$z=1 \land x=n$\}  while (x != 0) do z:=z*y;  x:= x-1 done  \{$z = y^n$\}}
+
+To prove this, it must be shown that the precondition implies the invariant and that the invariant implies the postcondition.
+
+To show that the precondition implies the invariant, it must be shown that $z=1 \land x=n$ implies $z = y^{(n - x)}$. If $z=1$ and $x=n$, the second equation reduces to $1=y^0$, or $1=1$. This is always true.
+
+To show that the invariant implies the postcondition, it must be shown that $z = y^{(n - x)}$ implies $z = y^n$. This is true because of the end assumption that $x=0$ when the while loop terminates. Therefore, the first equation reduces to $z = y^n$, making both equations the same and thus the implication true.
+
 
 \section{Project}
 This section will contain all details for my final project of this course.
