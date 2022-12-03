@@ -8,7 +8,7 @@
 - November 6, 2022 (Part 1)
 - November 18, 2022 (Part 2)
 
-**Completed Contents of Assignment 1:**
+**Completed Contents of Assignment 2:**
 - `LambdaNat0`
 - `LambdaNat1`
 - `LambdaNat2`
@@ -16,7 +16,7 @@
 - `LambdaNat4`
 - `LambdaNat5`
 
-**Uncompleted Contents of Assignment 1:** None
+**Uncompleted Contents of Assignment 2:** None
 
 **Known Bugs/Problems:** None
 
