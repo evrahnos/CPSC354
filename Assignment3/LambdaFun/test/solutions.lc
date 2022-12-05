@@ -1,0 +1,48 @@
+-- isempty
+val isempty = \l. case l of {
+    [] -> true,
+    _ -> false };;
+
+
+-- fib
+rec fib = \x. case x of {
+    0 -> 0,
+    1 -> 1,
+    _ -> fib (x-2) + fib (x-1) };;
+
+
+-- length
+rec length = \l. case l of {
+    [] -> 0,
+    (x:xs) -> 1 + length xs };;
+
+
+-- even
+rec even = \l. case (length l) of {
+    0 -> 1,
+    1 -> 0,
+    2 -> 1,
+    _ -> even (tail (tail l)) };;
+
+
+-- reverse (with append for two lists)
+rec append = \l1. \l2. case l1 of {
+    [] -> l2,
+    (x:xs) -> (x: (append xs l2)) };;
+
+rec reverse = \l1. case l1 of {
+    [] -> [],
+    (x:xs) -> append (reverse xs) [x] };;
+
+
+-- weave
+rec weave = \l1. \l2. case l1 of {
+    [] -> l2,
+    (x:xs) -> case l2 of {
+        [] -> l1,
+        (y:ys) -> case (x <= y) of {
+            true -> (x : (weave xs l2)),
+            false -> (y : (weave l1 ys))
+        }
+    }
+};;
