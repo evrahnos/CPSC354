@@ -24,13 +24,17 @@ Throughout this assignment, I learned that there can be many possible implementa
 
 Another challenge while implementing these functions was testing them through the debug code shown in `sort.lc`. In the end, it helped me decide the final implementation of the code. For example, my first `insert` function version required that a list first be created, then giving the list its contents after. This is different than my current iteration, which creates the list with its contents once. These different versions of creating the function leads to different usages of pointers, and ended up changing my entire code. This was mainly due to some small bugs with `print` and `sort` that made it much harder to correctly debug.
 
-Finally, creating this picture below helped me determine the order on what to check before inserting an element into the list. Drawing pictures throughout this entire assignment helped significantly, and outlining the function itself was no exception.
+Finally, an interesting observation I made is that creating pictures to help with testing and debugging helps a lot. Linked lists can be seen as boxes and arrows rather than pointers and elements, which makes implementing the functions much easier. Because of this, I decided to draw a picture for the function itself as well, helping me outline the most concise algorithm to find where to insert an element. The result is the picture below. Drawing pictures throughout this entire assignment helped significantly, and outlining the function itself was no exception.
 
 <p align="center">
   <img src="https://cdn.discordapp.com/attachments/619802365477912596/1050927890109300778/image.png" width="600">
 </p>
 
 ## Further Analysis
+
+
+
+
 
 Pseudocode for my implementation of the `insert n list` function:
 
@@ -88,3 +92,4 @@ Because `2 < 3 < 4`, the in between two elements case will execute, adding `3` a
 <p align="center">
   <img src="https://media.discordapp.net/attachments/619802365477912596/1050940209690316941/image.png" width="600">
 </p>
+
