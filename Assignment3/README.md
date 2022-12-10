@@ -26,6 +26,65 @@ Another challenge while implementing these functions was testing them through th
 
 Finally, creating this picture below helped me determine the order on what to check before inserting an element into the list. Drawing pictures throughout this entire assignment helped significantly, and outlining the function itself was no exception.
 
-![](https://media.discordapp.net/attachments/619802365477912596/1050927890109300778/image.png?width=1178&height=1482)
+<p align="center">
+  <img src="https://cdn.discordapp.com/attachments/619802365477912596/1050927890109300778/image.png" width="600">
+</p>
 
 ## Further Analysis
+
+Pseudocode for my implementation of the `insert n list` function:
+
+```
+(Create curr pointer beforehand on the stack)
+
+create elem pointer
+if list is nil:                                                     (empty list case)
+    insert element into empty list
+else:
+    set curr pointer to beginning of list
+    if n <= number in first element:                                (prepend case)
+        insert element before list
+    else:
+        set elem pointer to [n, "NULL"]
+        while elem = [n, "NULL"]:
+            if the element after the current element is "NULL":     (append case)
+                insert element after list
+            else:
+                if n <= number in current element:                  (in between two elements case)
+                    insert element right after curr
+                else:
+                    shift curr pointer forward one
+        set curr pointer to beginning of list
+```
+
+The following will be a visual walkthrough of the input `insert 3 (insert 1 (insert 4 (insert 2 nil)))`. 
+
+### Step 1: `insert 2 nil`
+
+Because the list is `nil`, the empty list case will execute, adding `2` as the lone element in the list.
+
+<p align="center">
+  <img src="https://media.discordapp.net/attachments/619802365477912596/1050939915879338054/image.png" width="600">
+</p>
+
+### Step 2: `insert 4 (insert 2 nil)`
+
+Because `4 > 2`, the append case will execute, adding `4` to the end of the list after `2`.
+
+<p align="center">
+  <img src="https://media.discordapp.net/attachments/619802365477912596/1050939995441090600/image.png" width="600">
+</p>
+
+### Step 3: `insert 1 (insert 4 (insert 2 nil))`
+
+<p align="center">
+  <img src="https://media.discordapp.net/attachments/619802365477912596/1050940080749027488/image.png" width="600">
+</p>
+
+### Step 4: `insert 3 (insert 1 (insert 4 (insert 2 nil)))`
+
+Because `2 < 3 < 4`, the in between two elements case will execute, adding `3` after `2` and before `4`.
+
+<p align="center">
+  <img src="https://media.discordapp.net/attachments/619802365477912596/1050940209690316941/image.png" width="600">
+</p>
