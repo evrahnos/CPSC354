@@ -6,7 +6,7 @@
 
 **Date of Submission:** 
 - December 4, 2022 (Part 1)
-- December ?, 2022 (Part 2)
+- December 9, 2022 (Part 2)
 
 **Completed Contents of Assignment 3:**
 - `test/solutions.lc`
