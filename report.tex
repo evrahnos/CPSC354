@@ -842,7 +842,7 @@ This ARS is not terminating because \texttt{b} can always reduce further. It is 
 \end{center}
 This ARS is not terminating because \texttt{b} and \texttt{c} can always reduce further. It is not confluent since the divergence to \texttt{b} and \texttt{c} cannot converge back. It does not have unique normal forms, as there are two normal forms of \texttt{a} (\texttt{b} and \texttt{c}).
 \newpage
-Lastly, the 8 different cases of confluence, termination, and presence of unique normal forms will be shown.
+Lastly, the 8 different cases of confluence, termination, and presence of unique normal forms are shown below.
 
 \begin{center}
 \begin{tabular}{ | m{5em} | m{5em}| m{12em} | m{3.2cm} | }
@@ -942,21 +942,26 @@ Reduction 6: abcb -> aba -> aab -> ac -> []
 \newpage
 
 \subsection{Week 10}
-The following is a calculation of $fix_F 2$ using equational reasoning.
+The following is a calculation involving a fixed-point combinator and its computation rule. The calculation solves $fix_F 2$ using equational reasoning. 
 
 \begin{lstlisting}[language=Haskell]
-fix_F 2 = (\n. if n == 0 then 1 else n * fix_F (n-1)) 2
-         = if 2 == 0 then 1 else 2 * fix_F (2-1)
-         = 2 * (fix_F 1)
-         = 2 * (\n. if n == 0 then 1 else n * fix_F (n-1)) 1
-         = 2 * (if 1 == 0 then 1 else 1 * fix_F (1-1))
-         = 2 * (1 * fix_F 0)
-         = 2 * (1 * (\n. if n == 0 then 1 else n * fix_F (n-1)) 0)
-         = 2 * (1 * (if 0 == 0 then 1 else 0 * fix_F (0-1)))
-         = 2 * (1 * (1))
-         = 2
+fix_F 2 = F fix_F 2                                                -- computation rule of fix_F
+         = (\n. if n == 0 then 1 else n * fix_F (n-1)) 2           -- definition of F and beta reduction
+         = if 2 == 0 then 1 else 2 * fix_F (2-1)                   -- beta reduction of n
+         = 2 * (fix_F 1)                                           -- computation rule of if/then/else
+         = 2 * (F fix_F 1)                                         -- computation rule of fix_F
+         = 2 * (\n. if n == 0 then 1 else n * fix_F (n-1)) 1       -- definition of F and beta reduction
+         = 2 * (if 1 == 0 then 1 else 1 * fix_F (1-1))             -- beta reduction of n
+         = 2 * (1 * fix_F 0)                                       -- computation rule of if/then/else
+         = 2 * (1 * F fix_F 0)                                     -- computation rule of fix_F
+         = 2 * (1 * (\n. if n == 0 then 1 else n * fix_F (n-1)) 0) 
+                                                                   -- definition of F and beta reduction
+         = 2 * (1 * (if 0 == 0 then 1 else 0 * fix_F (0-1)))       -- beta reduction of n
+         = 2 * (1 * (1))                                           -- computation rule of if/then/else
+         = 2                                                       -- multiplication
 \end{lstlisting}
 \newpage
+
 \subsection{Week 11}
 Some excerpts and my thoughts regarding contracts in the field of financial engineering.\\
 
