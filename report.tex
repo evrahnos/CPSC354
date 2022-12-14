@@ -879,13 +879,22 @@ ba -> ab
 ab -> ba
 \end{lstlisting}
 
-\noindent \textbf{Termination: } This ARS does not terminate because of the final two rules. There is a cycle between the strings \texttt{ab} and \texttt{ba}, meaning that there is no end to the cycle if there exists either of these strings.\\
+\noindent \textbf{Why does the ARS not terminate?: } This ARS does not terminate because of the final two rules. There is a cycle between the strings \texttt{ab} and \texttt{ba}, meaning that there is no end to the cycle if there exists either of these strings.\\
 
-\noindent \textbf{Normal forms: } The normal forms of this ARS are therefore an empty string, \texttt{a}, and \texttt{b}. Any string longer than one character with just \texttt{ab} and \texttt{ba} will be rewritten as another same-length string, as per the rewrite rules.\\
+\noindent \textbf{What are the normal forms?: } The normal forms of this ARS are therefore an empty string, \texttt{a}, and \texttt{b}. Any string longer than one character with just \texttt{ab} and \texttt{ba} will be rewritten as another same-length string, as per the rewrite rules.\\
 
-\noindent \textbf{Unique normal forms: } These rewrite rules can be slightly altered so that the ARS can be defined as having unique normal forms. If we treat \texttt{a} and \texttt{b} as the base-10 digits \texttt{0} and \texttt{1}, it has a slightly different meaning. Because base-10 numbers inherently have an order (0 before 1), these new rewrite rules will allow constant reduction to a normal form not by length, but by number size.\\
+\noindent \textbf{Modify the ARS so that it is terminating, has unique normal forms: } These rewrite rules can be slightly altered so that the ARS is terminating and has unique normal forms. By removing the fourth rule, it eliminates the possibility of the original termination problem. What this does is allow a combination of \texttt{a} and \texttt{b} through only one permutation. This would end up adding another normal form to the previously mentioned three, which is \texttt{ab}.
 
-\noindent \textbf{ARS function: } The normal forms of this updated rewrite system would thus be the lowest number possible that can be reduced from the starting string. In terms of \texttt{a} and \texttt{b}, the resulting string would have all \texttt{a}'s to the left and all \texttt{b}'s to the right. However, this letter form does not have much meaning, as the letters do not have a predefined comparison order, and thus cannot be counted as a normal form. The normal forms in terms of \texttt{0} and \texttt{1} has more meaning.
+This works because the functionality of the ARS is preserved. Going through the 4 possible combinations of two-letter strings, \texttt{aa} and \texttt{bb} reduce in the same fashion. In order to prevent termination, the third or fourth rule should be eliminated. The fourth rule was chosen to be eliminated here to keep the alphabetical orderliness of \texttt{ab}. Therefore, the third rule reduces the same and the elimination of the fourth rule causes \texttt{ab} to be a normal form.\\
+
+\noindent \textbf{Describe the specification implemented by the ARS: } The specification can be found by seeing the patterns that emerge from reduction using this ARS. This can be done by coming up with possible invariants. Looking at the rules, it can be guessed that any string with the normal form \texttt{a} or \texttt{b} only contained the letter \texttt{a}/\texttt{b} in the beginning string, respectively. If a string contained both \texttt{a} and \texttt{b}, the third rewrite rule would be used eventually, leading to the normal form of \texttt{ab}. 
+
+Therefore, an invariant that can be concluded is that \textbf{the original string only contained \texttt{a}'s if the normal form of the string is \texttt{a}}. The same invariant applies to \texttt{b} as well. Likewise, \textbf{the original string contained \texttt{a}'s and \texttt{b}'s if the normal form of the string is \texttt{ab}}. Finally, \textbf{the original string contained neither \texttt{a}'s nor \texttt{b}'s if the normal form of the string is an empty string}. All of these invariants assume that the only possible letters that can appear in the string are \texttt{a} and \texttt{b}.
+
+The specification can then be constructed to describe the ARS as a function that determines the presence of \texttt{a}'s and the presence of \texttt{b}'s at the same time. The 4 possible combinations of \texttt{a}'s and \texttt{b}'s presences can be matched up to the 4 possible normal forms of the ARS.
+
+\newpage
+
 \subsection{Week 9}
 Regarding the final project, the following deadlines will be made to keep track of progress of my programming language exploration:\\
 
@@ -935,7 +944,6 @@ fix_F 2 = (\n. if n == 0 then 1 else n * fix_F (n-1)) 2
          = 2
 \end{lstlisting}
 \newpage
-
 \subsection{Week 11}
 Some excerpts and my thoughts regarding contracts in the field of financial engineering.\\
 
@@ -954,7 +962,6 @@ Some excerpts and my thoughts regarding contracts in the field of financial engi
 \textbf{A:} I was thinking about the non-contract-related opportunities of this financial language. Even if learning the language perfectly had no beneficial effect to using these contracts, it can be beneficial outside of creating contracts. Programming is widely known as an essential skill in many fields, and it can still prove to be useful at least somewhere else, since financial engineering combines two big seemingly-unrelated fields.
 
 \newpage
-
 \subsection{Week 12}
 
 The following is an analysis of the following code through the lens of Hoare logic:
