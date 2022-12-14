@@ -896,38 +896,51 @@ The specification can then be constructed to describe the ARS as a function that
 \newpage
 
 \subsection{Week 9}
-Regarding the final project, the following deadlines will be made to keep track of progress of my programming language exploration:\\
 
-\noindent \textbf{November 13}: Create a tutorial that covers the evolution of Ruby and the fundamentals of the programming language. The tutorial part will cover these categories: basics, control structures, and collections. Exercises and their answers will be provided.\\
-
-\noindent \textbf{November 20}: Have an idea for the project portion of the report laid out in detail.\\
-
-\noindent \textbf{November 27}: Have said project complete and full within the report.\\
-
-\noindent \textbf{December 4}: Have the critical appraisal completed, and therefore the entirety of the Project section of the report complete.
-\newpage
-\noindent The next section will involve an analysis of the following ARS:
+This section involves an analysis of the following ARS:
 \begin{lstlisting}
-ba -> ab
-ab -> ba
-ac -> ca
-ca -> ac
-bc -> cb
-cb -> bc
- 
-aa -> b
-ab -> c
-ac ->  
-bb ->
-cb -> a
-cc -> b
+ba -> ab            aa -> b
+ab -> ba            ab -> c
+ac -> ca            ac ->  
+ca -> ac            bb ->
+bc -> cb            cb -> a
+cb -> bc            cc -> b
 \end{lstlisting}
 
-\noindent The first thing to note is that with this current version of the ARS, it is not terminating, nor does order of the letters matter. This is because the top half of the ARS does not show the entire ARS to be a complete measure function, and that any combination of letters can be reoriented within the entire string. \\
+\noindent The first thing to note is that with this ARS, the order of the letters do not matter. Any combination of letters can be reoriented within the entire string, hinting that the specification has something to do with commutativity. The second thing to note is that this ARS is terminating with 4 normal forms: \texttt{a}, \texttt{b}, \texttt{c}, and the empty list. This can be shown since the second half of the rules reduce any two-letter string to a one- or zero-letter string, and this cycle would continue until one of the 4 normal forms are reached. 
 
-\noindent Also to note are some normal forms, which include the empty string (from Rules 9 and 10) and the one-character strings (\texttt{a}, \texttt{b}, \texttt{c}). The first thing of notice is that any string larger than 1 character can be reduced to a form without any \texttt{a}s. This is because of the reordering rules. Say we order our string so that all \texttt{a}s appear first, followed by \texttt{b}s and \texttt{c}s. Generally, This would turn every pair of \texttt{a}s into \texttt{b}s, with any lone \texttt{a}s therefore joining with newly created \texttt{b}s to form \texttt{c}s. This observation holds for smaller strings as well, of course including those strings that don't contain \texttt{a} to begin with.\\
+This can be formalized as an important invariant, which is that every two-letter combination yields a single character. The empty list will be treated as a single character for now, as this is important in the explanation.
 
-\noindent After noticing all strings (except for \texttt{a}) can be reduced to a string without \texttt{a}s, I noticed that if the resulting string has an even number of \texttt{b}s and $C mod 4 == 0$ (where C is the number of \texttt{c}s in the string), then the string will reduce to an empty string. This is dependent on Rule 10 and Rule 12, saying that if all \texttt{c}s eventually reduce to an even number of \texttt{b}s, and there were originally an even number of \texttt{b}s already present in the string, then everything will reduce to an empty string.
+Combining these two observations and the invariant, it hints at arithmetic, namely addition and modulo. Using this as a guide, the letters in this ARS can be treated as base-10 numbers instead, with $a=1$, $b=2$, and $c=3$. Pairs of letters together will be interpreted as the addition of those two numbers, with \texttt{aa} acting as $a+a$ as an example. This helps decipher the first half of the ruleset, as it reinforces the fact that adding two letters together can be done in either order (commutativity), and it will yield the same result in the second half of the ruleset.
+
+The 4 normal forms can also be treated as these base-10 numbers, with the empty list acting as $0$. Doing this to the second half of the ruleset, we get the following substitution:
+
+\begin{lstlisting}
+1 + 1 -> 2
+1 + 2 -> 3
+1 + 3 -> 0
+2 + 2 -> 0
+3 + 2 -> 1
+3 + 3 -> 2
+\end{lstlisting}
+
+Seeing this substitution, this can be seen to follow the pattern of \texttt{mod 4}. Therefore, the specification for this ARS is that it calculates \texttt{n mod 4}, with \texttt{n} being the sum of a given word's letters, as if they were treated as base-10 numbers. This takes advantage of another hidden invariant, which is the following:
+
+\texttt{(((x+y) mod 4)+z) mod 4 = (x+y+z) mod 4}, $\forall x, y, z \in\mathbb{N}$
+
+To give a longer example, \texttt{abcb} should reduce to the empty list, as $(1+2+3+2)mod4 = 0$. We can see this does indeed work with the following possible reductions.
+
+\begin{lstlisting}
+Reduction 1: abcb -> ccb -> bb -> []
+Reduction 2: abcb -> ccb -> ca -> ac -> []
+Reduction 3: abcb -> acbb -> aab -> bb -> []
+Reduction 4: abcb -> acbb -> aab -> ac -> []
+Reduction 5: abcb -> aba -> ca -> ac -> []
+Reduction 6: abcb -> aba -> aab -> ac -> []
+\end{lstlisting}
+
+\newpage
+
 \subsection{Week 10}
 The following is a calculation of $fix_F 2$ using equational reasoning.
 
@@ -1025,11 +1038,9 @@ Regarding the final project, the following deadlines will be made to keep track 
 
 \noindent \textbf{November 13}: Create a tutorial that covers the evolution of Ruby and the fundamentals of the programming language. The tutorial part will cover these categories: basics, control structures, and collections. Exercises and their answers will be provided.\\
 
-\noindent \textbf{November 20}: Have an idea for the project portion of the report laid out in detail.\\
+\noindent \textbf{November 20}: The software project portion will cover an example blog application using the Ruby on Rails framework, going over key aspects of what it takes to create such an application with Rails (for example, show snippets of code demonstrating different functionalities). This milestone will check if a completed first draft is made, which will contain just a walkthrough section. \\
 
-\noindent \textbf{November 27}: Have said project complete and full within the report.\\
-
-\noindent \textbf{December 4}: Have the critical appraisal completed, and therefore the entirety of the Project section of the report complete. \\
+\noindent \textbf{November 27}: Have the software project complete within the tutorial. As per the previous milestone, the project will cover an example blog application using the Ruby on Rails framework. For this milestone, it will include a final version of the walkthrough, as well as  final takeaways after the completion of this project.\\
 
 \noindent The protoype tutorial can be found at the following link: https://hackmd.io/@evrahnos/rJyCCKdri
 
