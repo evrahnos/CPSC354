@@ -963,23 +963,24 @@ fix_F 2 = F fix_F 2                                                -- computatio
 \newpage
 
 \subsection{Week 11}
-Some excerpts and my thoughts regarding contracts in the field of financial engineering.\\
 
-\noindent A question I posed:\\
+The following is an essay comprised of my thoughts and analysis on the world of composing financial contracts through a domain specific programming language.\\
 
-\textbf{Q:} Reading into "Composing Contracts: An Adventure in Financial Engineering", I was wondering about the global-scale technological opportunities of this new way of creating financial contracts. If this method of composing contracts was more widely known today, how would that affect the process of how contracts are done and agreed on? Could it affect the values of the contract themselves?\\
 
-\noindent Excerpts of conversations I replied to:\\
+Domain specific programming languages (DSL) are programming languages that are specialized to a specific application or purpose. Common applications today that include the use of DSLs are Microsoft Excel and musical notation software. Certain programming languages also serve as DSLs, such as R (statistics) and HTML (web design). The worlds of programming and finance don’t seem to have much relation at first, but the number of ways where they could be co-beneficial in today’s technology-driven world is only increasing. Encoding financial contracts through a DSL is seen to have many practical applications. Condensing a wide range of possible contracts into something easier to understand, as well as using these contracts to present information effectively, are some notable advantages that a DSL could have in the financial world.
 
-\textbf{Q:} For financial traders making trades with this system, would this system be dangerous for those not capable of understanding the grammar thoroughly? What is to stop someone from making a predatory contract, and obfuscating the malicious details with syntax?\\
+There are many details that go into creating a generic financial contract. Dates, amounts, conditions, and currency are only a select few of details that make up a contract. By encoding these contracts through a DSL, the format of a contract can be standardized within its own special language. After figuring out what key details can be altered to define a contract, the DSL can describe any contract imaginable with a given set of these important details. A set of variables, or “combinators”, would be used to represent these details, but the generic body of a contract would be universal throughout all contracts. This makes it easier for contracts to be conceptualized, with only the key details needing attention.
 
-\textbf{A:} I was also thinking about the dangerous side of the potential capabilities of creating the entire financial engineering side of contracts. Neutrality in many aspects should be ensured to keep fairness and visibility in this kind of program. For example, a more experienced programmer should not have some kind of advantage over a lesser experienced programmer.\\
+A key advantage of standardizing these contracts through a programming language is that special operations can be done on these digital contracts. For example, one can combine different contracts if a contract requires two payments at different times. This requires less knowledge and effort than composing a new contract altogether, whether physical or digital. Additionally, one can scale a contract based on another observable combinator. This means that one can define a contract’s value solely based on a scaled version of another variable, meaning the value would automatically be calculated given the other variable. One can also see visual interpretations of these contracts to understand them easier, such as “presenting contracts in new graphical ways” and “providing animated simulations” (Source). This might help others to see the value in a contract easier, as well as help financial experts make important decisions based on the contracts.
 
-\textbf{Q:} If financial experts took the time to learn the language, how beneficial would it really be? In the article it states "identifying the 'right' primitive combinators is quite a challenge." So would it be worth/necessary for financial experts to try? \\
+Although there are many benefits to digitalizing contracts, it comes with a few questions about its practicality. Security and legality are important aspects of physical contracts today, so its digital counterpart would need to be thought out as well. Human behavior would still be an important factor in creating these contracts, so a safeguard to prevent exploitative practices would be necessary. Neutrality in many aspects should be ensured to keep fairness and visibility in this kind of program. For example, a more experienced programmer should not have some kind of advantage over a lesser experienced programmer. Additionally, a DSL’s usage in other fields could be investigated more to make simplifying other processes easier. Even if learning this specific DSL perfectly had no beneficial effect to using these contracts, it can be beneficial outside of creating contracts. Programming is widely known as an essential skill in many fields, and it can still prove to be useful at least somewhere else, since financial engineering combines two big seemingly-unrelated fields. In all, a DSL can drastically expand the possibilities of one field’s standards, as “a single formal description can drive all manner of automated processes” (Source).\\
 
-\textbf{A:} I was thinking about the non-contract-related opportunities of this financial language. Even if learning the language perfectly had no beneficial effect to using these contracts, it can be beneficial outside of creating contracts. Programming is widely known as an essential skill in many fields, and it can still prove to be useful at least somewhere else, since financial engineering combines two big seemingly-unrelated fields.
+
+Source: 
+\href{https://www.cs.tufts.edu/~nr/cs257/archive/simon-peyton-jones/contracts.pdf}{Composing Contracts: An Adventure in Financial Engineering}
 
 \newpage
+
 \subsection{Week 12}
 
 The following is an analysis of the following code through the lens of Hoare logic:
